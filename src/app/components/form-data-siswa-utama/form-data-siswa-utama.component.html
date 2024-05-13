@@ -270,7 +270,7 @@
                                 d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <p class="mb-4 text-black font-bold text-lg">Silahkan pilih titik Kelurahan yang anda pilih</p>
+                        <p class="mb-4 text-black font-bold text-lg">Silahkan pilih titik Area Kelurahan yang dipilih</p>
                     </div>
                 </ng-container>
 
@@ -290,14 +290,6 @@
                 <div class="fixed flex justify-center items-start inset-0 z-50 bg-gray-300 bg-opacity-65 w-full h-full">
                     <prappdb-modal-cari-alamat-registrasi (view)="viewModalCariAlamatAction($event)"
                         (lokasi)="getLokasi($event)"></prappdb-modal-cari-alamat-registrasi>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="minmaxError">
-                <div class="sm:col-span-2">
-                    <div
-                        class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        Silahkan pilih titik di Area Provinsi, Kota/Kab,
-                        Kecamatan, Kelurahan yang anda pilih</div>
                 </div>
             </ng-container>
             <ng-container *ngIf="isInfoAlamatMap">

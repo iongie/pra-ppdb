@@ -1,0 +1,23 @@
+<ng-container *ngIf="respon.mode !== null">
+    <div class="fixed inset-0 z-50 flex justify-center items-center backdrop-blur-sm bg-white bg-opacity-50">
+        <div class="relative p-4 w-full max-w-md">
+            <!-- Modal content -->
+            <div class="relative p-4 text-center bg-white rounded-lg shadow sm:p-5">
+                <div class="w-12 h-12 rounded-full bg-green-100 p-2 flex items-center justify-center mx-auto mb-3.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" viewBox="0 0 48 48"
+                        aria-hidden="true">
+                        <circle class="circle-success" fill="#5bb543" cx="24" cy="24" r="22" />
+                        <path class="tick" fill="none" stroke="#FFF" stroke-width="6" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-miterlimit="10" d="M14 27l5.917 4.917L34 17" />
+                    </svg>
+                    <span class="sr-only">Success</span>
+                </div>
+                <p class="mb-4 text-lg font-semibold text-gray-900">{{respon.pesan}}</p>
+                <button (click)="lanjut()" type="button"
+                    class="py-2 px-3 text-sm font-medium text-white rounded-lg bg-colors-primary hover:bg-colors-secondary hover:text-black">
+                    Selesai
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>

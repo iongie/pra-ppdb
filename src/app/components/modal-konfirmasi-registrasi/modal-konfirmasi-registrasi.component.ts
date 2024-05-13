@@ -44,9 +44,8 @@ export class ModalKonfirmasiRegistrasiComponent implements OnInit, OnDestroy {
     this.stateLogin.getLogin
     .pipe(
       switchMap((n)=> this.callApi.post({nik: n.nik, nisn: n.nisn}, 'siswa/simpan/konfirmasi')),
-      tap((r: any) => this.stateRespon.updateModelModal({ mode: 'success', pesan: r.message })),
+      tap((r: any) => this.stateRespon.updateModelModal({ mode: 'success', pesan: 'r.message' })),
       tap((r)=> this.stateKonfirmasi.updateProsesRegister(false)),
-      tap(()=> this.router.navigate(['/'])),
       catchError(e=> {
         this.stateRespon.updateModelToast({ mode: 'error', pesan: e.error.message });
         this.stateKonfirmasi.updateProsesRegister(false);

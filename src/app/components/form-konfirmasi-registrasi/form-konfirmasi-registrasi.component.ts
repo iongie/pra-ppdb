@@ -77,8 +77,7 @@ export class FormKonfirmasiRegistrasiComponent implements OnInit, OnDestroy {
         catchError(e => {
           this.isLoading = false;
           this.actionMessageError = true;
-          this.messageError = e.error.message
-          throw e;
+          this.messageError = e
           throw e;
         }),
         takeUntil(this.destroy)

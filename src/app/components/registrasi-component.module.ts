@@ -16,6 +16,7 @@ import { FormKonfirmasiRegistrasiComponent } from './form-konfirmasi-registrasi/
 import { FormTambahPrestasiComponent } from './form-tambah-prestasi/form-tambah-prestasi.component';
 import { ModalKonfirmasiRegistrasiComponent } from './modal-konfirmasi-registrasi/modal-konfirmasi-registrasi.component';
 import { ModalCariAlamatRegistrasiComponent } from './modal-cari-alamat-registrasi/modal-cari-alamat-registrasi.component';
+import { ResponSuccessModalComponent } from './respon-success-modal/respon-success-modal.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ModalCariAlamatRegistrasiComponent } from './modal-cari-alamat-registra
     FormKonfirmasiRegistrasiComponent,
     FormTambahPrestasiComponent,
     ModalKonfirmasiRegistrasiComponent,
-    ModalCariAlamatRegistrasiComponent
+    ModalCariAlamatRegistrasiComponent,
+    ResponSuccessModalComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +54,8 @@ import { ModalCariAlamatRegistrasiComponent } from './modal-cari-alamat-registra
     FormKonfirmasiRegistrasiComponent,
     FormTambahPrestasiComponent,
     ModalKonfirmasiRegistrasiComponent,
-    ModalCariAlamatRegistrasiComponent
+    ModalCariAlamatRegistrasiComponent,
+    ResponSuccessModalComponent
   ]
 })
 export class ComponentRegistrasiModule { }

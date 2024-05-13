@@ -52,7 +52,7 @@ export class LoginUtamaComponent implements OnInit, OnDestroy {
         tap((n) => {
           this.loginPrappdbForm = this.fb.group({
             nik: [null, [Validators.required]],
-            // 'g-recaptcha-response': ['', [Validators.required]]
+            'g-recaptcha-response': ['', [Validators.required]]
           });
           this.url = n
           console.log(this.url);
