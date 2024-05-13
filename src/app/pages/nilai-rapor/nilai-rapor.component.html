@@ -1,0 +1,133 @@
+<div class="flex flex-col items-center justify-between w-full">
+    <div class="mx-auto w-full text-start">
+        <ng-container *ngFor="let nilai of nilaiRapor">
+            <div class="grid mb-8 sm:grid-cols-1 divide-y divide-gray-100 border border-gray-300 rounded-lg">
+                <div class="grid gap-2 grid-cols-4 p-2.5">
+                    <div class="flex flex-row justify-between">
+                        <label class="text-sm font-medium text-blue-900">
+                            Semester
+                        </label>
+                        <label class="text-sm font-medium text-blue-900">
+                            :
+                        </label>
+                    </div>
+                    <div class="col-span-3 text-cen text-blue-900 text-sm rounded-lg block w-full">
+                        {{nilai.semester}}
+                    </div>
+                </div>
+                <div class="grid gap-2 grid-cols-4 p-2.5">
+                    <div class="flex flex-row justify-between">
+                        <label class="text-sm font-medium text-blue-900">
+                            Kelas
+                        </label>
+                        <label class="text-sm font-medium text-blue-900">
+                            :
+                        </label>
+                    </div>
+                    <div class="col-span-3 text-cen text-blue-900 text-sm rounded-lg block w-full">
+                        {{nilai.kelas}}
+                    </div>
+                </div>
+                <div class="grid gap-2 grid-cols-4 p-2.5">
+                    <div class="flex flex-row justify-between">
+                        <label class="text-sm font-medium text-blue-900">
+                            Total Nilai
+                        </label>
+                        <label class="text-sm font-medium text-blue-900">
+                            :
+                        </label>
+                    </div>
+                    <div class="col-span-3 text-cen text-blue-900 text-sm rounded-lg block w-full">
+                        {{nilai.total}}
+                    </div>
+                </div>
+                <div class="grid gap-2 grid-cols-4 p-2.5">
+                    <div class="flex flex-row justify-between">
+                        <label class="text-sm font-medium text-blue-900">
+                            Peringkat
+                        </label>
+                        <label class="text-sm font-medium text-blue-900">
+                            :
+                        </label>
+                    </div>
+                    <div class="col-span-3 text-cen text-blue-900 text-sm rounded-lg block w-full">
+                        {{nilai.peringkat}}
+                    </div>
+                </div>
+
+                <div class="grid gap-2 grid-cols-1 p-2.5">
+                    <h5 class="text-lg md:text-lg font-bold">Data Nilai</h5>
+                    <div class="grid sm:grid-cols-4 gap-4">
+                        <ng-container *ngFor="let data_nilai of nilai.data_nilai">
+                            <div>
+                                <div class="pl-4 py-2 bg-primary-bg">
+                                    <p class="text-sm md:text-sm font-normal text-primary-txt">
+                                        {{data_nilai.mapel}}</p>
+                                </div>
+                                <div class="grid grid-cols-2">
+                                    <div class="flex flex-row justify-between">
+                                        <label class="ml-4 text-sm font-medium text-blue-900">
+                                            Pengetahuan
+                                        </label>
+                                        <label class="text-sm font-medium text-blue-900">
+                                            :
+                                        </label>
+                                    </div>
+                                    <div class="ml-2 text-blue-900 text-sm rounded-lg block">
+                                        {{data_nilai.nilai.pengetahuan}}</div>
+                                </div>
+                                <div class="grid grid-cols-2">
+                                    <div class="flex flex-row justify-between">
+                                        <label class="ml-4 text-sm font-medium text-blue-900">
+                                            Keterampilan
+                                        </label>
+                                        <label class="text-sm font-medium text-blue-900">
+                                            :
+                                        </label>
+                                    </div>
+                                    <div class="ml-2 text-blue-900 text-sm rounded-lg block">
+                                        {{data_nilai.nilai.keterampilan}}</div>
+                                </div>
+                                <div class="grid grid-cols-2">
+                                    <div class="flex flex-row justify-between">
+                                        <label class="ml-4 text-sm font-medium text-blue-900">
+                                            Rata-rata
+                                        </label>
+                                        <label class="text-sm font-medium text-blue-900">
+                                            :
+                                        </label>
+                                    </div>
+                                    <div class="ml-2 text-blue-900 text-sm rounded-lg block">
+                                        {{data_nilai.nilai.rata_rata}}</div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div
+        class="self-end items-center space-y-2 md:flex-row md:justify-end sm:flex sm:flex-col sm:space-y-0 sm:space-x-4 mb-4 md:mb-4">
+        <button type="button"
+            (click)="kembali()"
+            class="gap-1 w-full sm:w-auto justify-center inline-flex text-black bg-gray-100 hover:ring-1 hover:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd"
+                    d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z"
+                    clip-rule="evenodd" />
+            </svg>
+            <span>Kembali</span>
+        </button>
+        <button type="button"
+            (click)="lanjut()"
+            class="gap-1 w-full sm:w-auto justify-center inline-flex bg-text-black bg-gray-100 hover:ring-1 hover:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            <span>Lewati</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd"
+                    d="M14.47 2.47a.75.75 0 0 1 1.06 0l6 6a.75.75 0 0 1 0 1.06l-6 6a.75.75 0 1 1-1.06-1.06l4.72-4.72H9a5.25 5.25 0 1 0 0 10.5h3a.75.75 0 0 1 0 1.5H9a6.75 6.75 0 0 1 0-13.5h10.19l-4.72-4.72a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd" />
+            </svg>
+        </button>
+    </div>
+</div>

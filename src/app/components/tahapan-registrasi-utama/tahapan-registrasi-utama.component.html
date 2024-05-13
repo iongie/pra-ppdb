@@ -1,0 +1,28 @@
+<ol class="md:space-y-4 md:w-full md:block hidden">
+    <ng-container *ngFor="let step of step; index as i">
+        <li>
+            <div class="w-full p-4 rounded-lg border"
+                [ngClass]="{'text-green-700 border-green-300 bg-green-50': step.process === 'done','text-blue-700 bg-blue-100 border-blue-300': step.process === 'on proses','text-gray-900 bg-gray-100 border-gray-300': step.process === 'none' }"
+                role="alert">
+                <div class="flex items-center justify-between">
+                    <span class="sr-only capitalize">{{step.name}}</span>
+                    <h3 class="font-medium capitalize">{{(i+1)+'. '+step.name}}</h3>
+                    <ng-container *ngIf="step.process === 'done'">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 16 12">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5.917 5.724 10.5 15 1.5" />
+                        </svg>
+                    </ng-container>
+                    <ng-container *ngIf="step.process === 'on proses'">
+                        <svg class="rtl:rotate-180 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </ng-container>
+                </div>
+            </div>
+        </li>
+    </ng-container>
+</ol>

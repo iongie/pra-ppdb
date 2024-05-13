@@ -1,0 +1,166 @@
+<div class="p-4 md:p-5">
+    <ng-container>
+        <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+            <span class="font-medium">Informasi!</span> Tahapan ini bisa dilewati, anda bisa langsung ke proses berikutnya
+          </div>
+    </ng-container>
+    <ng-container *ngIf="actionMessageError">
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+            <span class="font-medium">Info alert!</span> {{messageError}}
+        </div>
+    </ng-container>
+    <form enctype="multipart/form-data" class="space-y-4 pb-1" [formGroup]="pindahWaliForm" #formDir="ngForm"
+        (submit)="submit()">
+        <h3 class="mb-4 text-lg font-medium leading-none text-gray-900">
+            Bukti Perpindahan Orang tua/Wali
+        </h3>
+        <div class="grid gap-4 mb-4 sm:grid-cols-2">
+            <div>
+                <label for="no_surat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Nomor Surat Ket. Pindah
+                    <span class="text-red-500">*</span>
+                </label>
+                <input type="text" name="no_surat" id="no_surat"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    placeholder="Nomor surat" formControlName="no_surat" />
+                <ng-container *ngIf="noNomorSUrat">
+                    <div class="mt-1 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Danger alert!</span> Nomor surat harap diisi
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div>
+                <label for="instansi_ortu" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Instansi Orang tua/Wali
+                    <span class="text-red-500">*</span>
+                </label>
+                <select (change)="onInstansiOrtu($event)" id="instansi_ortu" name="instansi_ortu"
+                    formControlName="instansi_ortu"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="null">Pilih Instansi</option>
+                    <option value="negeri">Negeri</option>
+                    <option value="swasta">Swasta</option>
+                </select>
+                <ng-container *ngIf="noInstansiOrtu">
+                    <div class="mt-1 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Danger alert!</span> Instansi wali harap diisi
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="mb-4">
+            <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Surat Ket. Pindah (format .jpeg/ .jpg/ .png / .pdf)
+                <span class="text-red-500">*</span>
+            </span>
+            <div class="flex justify-center items-center w-full">
+                <label for="dropzone-file"
+                    class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <div class="flex flex-col justify-center items-center pt-5 pb-6">
+                        <ng-container *ngIf="nameFile === null">
+                            <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
+                                stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                <span class="font-semibold">Click to upload</span>
+                            </p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Hanya file berformat PNG, JPG, PDF
+                            </p>
+                        </ng-container>
+                        <ng-container *ngIf="nameFile !== null">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="mb-3 w-10 h-10 text-gray-400">
+                                <path fill-rule="evenodd"
+                                    d="M9 1.5H5.625c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5Zm6.61 10.936a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 14.47a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                    clip-rule="evenodd" />
+                                <path
+                                    d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+                            </svg>
+                            <a class='font-medium text-md hover:underline' [href]="pindahWaliData.file_url"
+                                target="_blank" rel="noopener noreferrer">
+                                <p class="mb-2 text-sm text-gray-500">
+                                    {{nameFile}}
+                                </p>
+                            </a>
+                        </ng-container>
+                    </div>
+                    <input (change)="uploadFile($event)" id="dropzone-file" type="file" class="hidden">
+                </label>
+            </div>
+            <ng-container *ngIf="noNameSurat">
+                <div class="mt-1 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                    role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-medium">Danger alert!</span> Harap mengupload surat
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div
+            class="items-center space-y-2 md:flex-row md:justify-end sm:flex sm:flex-col sm:space-y-0 sm:space-x-4 mb-4 md:mb-4">
+            <button type="button" (click)="kembali()"
+                class="gap-1 w-full sm:w-auto justify-center inline-flex text-black bg-gray-100 hover:ring-1 hover:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd"
+                        d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span>Kembali</span>
+            </button>
+            <button type="submit"
+                class="w-full sm:w-auto justify-center items-center text-white inline-flex gap-3 bg-colors-primary hover:bg-colors-secondary hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                <ng-container *ngIf="!isLoading">
+                    Simpan dan Lanjut
+                </ng-container>
+                <ng-container *ngIf="isLoading">
+                    <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
+                        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="#E5E7EB" />
+                        <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentColor" />
+                    </svg>
+                    Loading...
+                </ng-container>
+            </button>
+            <button type="button" (click)="lewati()"
+                class="gap-1 w-full sm:w-auto justify-center inline-flex text-black bg-gray-100 hover:ring-1 hover:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                <span>Lewati</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd"
+                        d="M14.47 2.47a.75.75 0 0 1 1.06 0l6 6a.75.75 0 0 1 0 1.06l-6 6a.75.75 0 1 1-1.06-1.06l4.72-4.72H9a5.25 5.25 0 1 0 0 10.5h3a.75.75 0 0 1 0 1.5H9a6.75 6.75 0 0 1 0-13.5h10.19l-4.72-4.72a.75.75 0 0 1 0-1.06Z"
+                        clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </form>
+</div>

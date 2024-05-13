@@ -1,0 +1,553 @@
+<ng-container>
+    <form enctype="multipart/form-data" [formGroup]="dataSiswaForm" #formDir="ngForm" (submit)="submit()">
+        <h3 class="mb-4 text-lg font-medium leading-none text-gray-900">Data Siswa</h3>
+        <div class="grid gap-4 mb-4 sm:grid-cols-2">
+            <div>
+                <label class="block mb-2 text-sm font-medium text-blue-900">
+                    NIK
+                </label>
+                <div
+                    class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    {{dataSiswa.nik}}</div>
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-blue-900">
+                    Nama Lengkap
+                </label>
+                <div
+                    class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    {{dataSiswa.n_siswa}}</div>
+            </div>
+            <div class="grid gap-4 sm:col-span-2 md:gap-4 sm:grid-cols-2">
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-blue-900">
+                        Tempat Lahir
+                    </label>
+                    <div
+                        class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        {{dataSiswa.t_lahir}}</div>
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-blue-900">
+                        Tanggal Lahir
+                    </label>
+                    <div
+                        class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        {{dataSiswa.d_lahir}}</div>
+                </div>
+            </div>
+            <div class="grid gap-4 sm:col-span-2 md:gap-4 sm:grid-cols-3">
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-blue-900">
+                        NISN
+                    </label>
+                    <div
+                        class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        {{dataSiswa.nisn}}</div>
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-blue-900">
+                        Sekolah Asal
+                    </label>
+                    <div
+                        class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        {{dataSiswa.sekolah_asal}}</div>
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-blue-900">
+                        NPSN
+                    </label>
+                    <div
+                        class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        {{dataSiswa.npsn}}</div>
+                </div>
+            </div>
+            <div class="sm:col-span-2">
+                <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900">
+                    Alamat
+                    <span class="text-red-500">*</span>
+                </label>
+                <textarea id="alamat" name="alamt" rows="4" autocomplete="off" formControlName="alamat"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="Alamat" formControlName="alamat"></textarea>
+                <ng-container *ngIf="noAlamat">
+                    <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Penting!</span> Alamat harap dipilih
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="grid gap-4 sm:col-span-2 md:gap-6 sm:grid-cols-2">
+                <div>
+                    <label for="rt" class="block mb-2 text-sm font-medium text-gray-900">
+                        RT
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input prappdbInputHanyaNomor autocomplete="off" [maxLength]="3" [zero]="true" type="text" name="rt"
+                        id="rt"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        placeholder="Nomor RT" formControlName="rt">
+                    <ng-container *ngIf="noRt">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> Nomor RT harap diisi
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div>
+                    <label for="rw" class="block mb-2 text-sm font-medium text-gray-900">
+                        RW
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input prappdbInputHanyaNomor autocomplete="off" [maxLength]="3" [zero]="true" type="text" name="rw"
+                        id="rw"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        placeholder="Nomor RW" formControlName="rw">
+                    <ng-container *ngIf="noRw">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> Nomor RW harap diisi
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="grid gap-4 sm:col-span-2 md:gap-6 sm:grid-cols-4">
+                <div>
+                    <label for="provinsi_id" class="block mb-2 text-sm font-medium text-gray-900">
+                        Provinsi
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <select (change)="onProvinsiChange($event)" id="provinsi_id" name="provinsi_id"
+                        formControlName="provinsi_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                        <option value="null">Pilih Provinsi</option>
+                        <ng-container *ngFor="let provinsi of provinsi">
+                            <option [value]="provinsi.id">{{provinsi.n_provinsi}}</option>
+                        </ng-container>
+                    </select>
+                    <ng-container *ngIf="noProvinsi">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> Provinsi harap dipilih
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div>
+                    <label for="kabupaten_id" class="block mb-2 text-sm font-medium text-gray-900">
+                        Kota / Kab
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <select (change)="onKabupatenChange($event)" id="kabupaten_id" name="kabupaten_id"
+                        formControlName="kabupaten_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                        <option value="null">Pilih Kota / Kab</option>
+                        <ng-container *ngFor="let kabupaten of kabupaten">
+                            <option [value]="kabupaten.id">{{kabupaten.n_kabupaten}}</option>
+                        </ng-container>
+                    </select>
+                    <ng-container *ngIf="noKota">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> Kota harap dipilih
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div>
+                    <label for="kecamatan_id" class="block mb-2 text-sm font-medium text-gray-900">
+                        Kecamatan
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <select (change)="onKecamatanChange($event)" id="kecamatan_id" name="kecamatan_id"
+                        formControlName="kecamatan_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                        <option value="null">Pilih Kecamatan</option>
+                        <ng-container *ngFor="let kecamatan of kecamatan">
+                            <option [value]="kecamatan.id">{{kecamatan.n_kecamatan}}</option>
+                        </ng-container>
+                    </select>
+                    <ng-container *ngIf="noKecamatan">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> Kecamatan harap dipilih
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div>
+                    <label for="kelurahan_id" class="block mb-2 text-sm font-medium text-gray-900">
+                        Kelurahan
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <select (change)="onKelurahanChange($event)" id="kelurahan_id" name="kelurahan_id"
+                        formControlName="kelurahan_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                        <option value="null">Pilih Kota</option>
+                        <ng-container *ngFor="let kelurahan of kelurahan">
+                            <option [value]="kelurahan.id">{{kelurahan.n_kelurahan}}</option>
+                        </ng-container>
+                    </select>
+                    <ng-container *ngIf="noKelurahan">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> Kelurahan harap dipilih
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="sm:col-span-2 relative md:block">
+                <div class="flex flex-row gap-4 absolute z-10 right-1 top-1 ">
+                    <button type="button" (click)="infoAlamatMapAction()"
+                        class="w-auto justify-center inline-flex text-white bg-colors-primary hover:bg-colors-secondary hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <span>Lihat Alamat</span>
+                    </button>
+                    <button type="button" (click)="openCariAlamatAction()"
+                        class="w-auto justify-center inline-flex text-white bg-colors-primary hover:bg-colors-secondary hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <span>Cari Lokasi</span>
+                    </button>
+
+                </div>
+                <ng-container *ngIf="minmaxError">
+                    <div
+                        class="flex flex-col gap-1 absolute z-20 right-0 top-0 justify-center items-center w-full h-80 backdrop-blur-lg  bg-white bg-opacity-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="text-red-500 w-11 h-11 mx-auto">
+                            <path fill-rule="evenodd"
+                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <p class="mb-4 text-black font-bold text-lg">Silahkan pilih titik Kelurahan yang anda pilih</p>
+                    </div>
+                </ng-container>
+
+                <div class="sm:col-span-2">
+                    <google-map height="320px" width="100%" [center]="center" [zoom]="zoom"
+                        (mapClick)="addMarkerMapAction($event)">
+                        <map-polygon [paths]="vertices" [options]="optionMapPolygon"
+                                (polygonClick)="addMarkerMapPolygonAction($event)" />
+                        @for (position of markerPositions; track position) {
+                        <map-marker #marker="mapMarker" [position]="position"
+                            (mapClick)="openInfoMarkerAction(marker)" />
+                        }
+                    </google-map>
+                </div>
+            </div>
+            <ng-container *ngIf="isCariAlamat">
+                <div class="fixed flex justify-center items-start inset-0 z-50 bg-gray-300 bg-opacity-65 w-full h-full">
+                    <prappdb-modal-cari-alamat-registrasi (view)="viewModalCariAlamatAction($event)"
+                        (lokasi)="getLokasi($event)"></prappdb-modal-cari-alamat-registrasi>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="minmaxError">
+                <div class="sm:col-span-2">
+                    <div
+                        class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        Silahkan pilih titik di Area Provinsi, Kota/Kab,
+                        Kecamatan, Kelurahan yang anda pilih</div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="isInfoAlamatMap">
+                <div class="sm:col-span-2">
+                    <div
+                        class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        {{infoAlamatMap}}</div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="mb-4">
+            <span class="block mb-2 text-sm font-medium text-gray-900">
+                Upload Kartu Keluarga (format .jpeg/ .jpg/ .png)
+                <span class="text-red-500">*</span>
+            </span>
+            <div class="flex justify-center items-center w-full">
+                <label for="dropzone-file"
+                    class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointerhover:bg-gray-100">
+                    <div class="flex flex-col justify-center items-center pt-5 pb-6">
+                        <ng-container *ngIf="nameFile === null">
+                            <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
+                                stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            <p class="mb-2 text-sm text-gray-500">
+                                <span class="font-semibold">Click to upload</span>
+                            </p>
+                            <p class="text-xs text-gray-500">Hanya file berformat PNG, JPG
+                            </p>
+                        </ng-container>
+                        <ng-container *ngIf="nameFile !== null">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="mb-3 w-10 h-10 text-gray-400">
+                                <path fill-rule="evenodd"
+                                    d="M9 1.5H5.625c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5Zm6.61 10.936a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 14.47a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                    clip-rule="evenodd" />
+                                <path
+                                    d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+                            </svg>
+                            <a class='font-medium text-md hover:underline' [href]="dataSiswa.file_kk_url"
+                                target="_blank" rel="noopener noreferrer">
+                                <p class="mb-2 text-sm text-gray-500">
+                                    {{nameFile}}
+                                </p>
+                            </a>
+                        </ng-container>
+                    </div>
+                    <input (change)="uploadKK($event)" id="dropzone-file" type="file" class="hidden">
+                </label>
+            </div>
+            <ng-container *ngIf="noNameSertifikat">
+                <div class="mt-1 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-medium">Danger alert!</span> Harap mengupload kartu keluarga
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="grid gap-4 mb-4 sm:grid-cols-2">
+            <div>
+                <label for="no_kk" class=" mb-2 text-sm font-medium text-gray-900">
+                    Nomor Kartu Keluarga
+                    <span class="text-red-500">*</span>
+                </label>
+                <input prappdbInputHanyaNomor [maxLength]="16" [zero]="false" type="text" name="no_kk" id="no_kk"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Nomor Kartu Keluarga" formControlName="no_kk">
+                <ng-container *ngIf="noNomorKk">
+                    <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Penting!</span> Nomor Kartu Keluarga harap diisi
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div>
+                <label for="tanggal_kk" class=" mb-2 text-sm font-medium text-gray-900">
+                    Tanggal Terbit Kartu Keluarga
+                    <span class="text-red-500">*</span>
+                </label>
+                <input type="date" name="tanggal_kk" id="tanggal_kk"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Tanggal Kartu Keluarga" formControlName="tanggal_kk">
+                <ng-container *ngIf="noTanggalKk">
+                    <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Penting!</span> Tanggal Kartu Keluarga harap diisi
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="grid gap-4 sm:col-span-2 md:gap-4 sm:grid-cols-4">
+                <div>
+                    <label for="nama_ibu" class=" mb-2 text-sm font-medium text-gray-900">
+                        Nama Ibu
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input prappdbInputHanyaHuruf type="text" name="nama_ibu" id="nama_ibu"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        placeholder="Nama Ibu" formControlName="nama_ibu">
+                    <ng-container *ngIf="noNamaIbu">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> Nama Ibu harap diisi
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div>
+                    <label for="no_wa" class=" mb-2 text-sm font-medium text-gray-900">
+                        Nomor Whatsapp
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input prappdbInputHanyaNomor [maxLength]="13" type="text" name="no_wa" id="no_wa"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        placeholder="Nomor Whatsapp" formControlName="no_wa">
+                    <ng-container *ngIf="noNomorWa">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> Nomor Whatsapp harap diisi
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div>
+                    <label for="nik" class=" mb-2 text-sm font-medium text-gray-900">
+                        Lama Tinggal
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <div class="flex">
+                        <input prappdbInputHanyaNomor [maxLength]="3" type="text" name="lama_tinggal" id="lama_tinggal"
+                            class="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5"
+                            placeholder="Lama Tinggal" formControlName="lama_tinggal">
+                        <span
+                            class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-e-md">
+                            Tahun
+                        </span>
+                    </div>
+                    <ng-container *ngIf="noLamaTinggal">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> Lama tinggal harap diisi
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div>
+                    <label for="smp_tujuan" class="mb-2 text-sm font-medium text-gray-900">
+                        SMPN Tujuan
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <select (change)="onSekolahChange($event)" id="kel" name="sekolah_asal" id="sekolah_asal"
+                        formControlName="sekolah_tujuan"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                        <option value="null">Pilih Sekolah Tujuan</option>
+                        <ng-container *ngFor="let sekolahTujuan of sekolah">
+                            <option [value]="sekolahTujuan.n_sekolah">{{sekolahTujuan.n_sekolah}}</option>
+                        </ng-container>
+                    </select>
+                    <ng-container *ngIf="noSekolahTujuan">
+                        <div class="mt-1 flex items-center p-2 mb-4 text-xs text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Penting!</span> SMP tujuan harap diisi
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="actionMessageError">
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                <span class="font-medium">Info alert!</span> {{messageError}}
+            </div>
+        </ng-container>
+        <div
+            class="items-center space-y-4 md:flex-row md:justify-end sm:flex sm:flex-col sm:space-y-0 sm:space-x-4 mb-4 md:mb-4">
+            <button type="button" (click)="cancel()"
+                class="w-full sm:w-auto justify-center inline-flex text-black bg-gray-100 hover:ring-1 hover:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                <span>Batal</span>
+            </button>
+            <button type="submit"
+                class="w-full sm:w-auto justify-center items-center inline-flex gap-3 text-white bg-colors-primary mary-main hover:bg-colors-secondary hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                <ng-container *ngIf="!isLoading">
+                    Simpan dan lanjut
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M14.47 2.47a.75.75 0 0 1 1.06 0l6 6a.75.75 0 0 1 0 1.06l-6 6a.75.75 0 1 1-1.06-1.06l4.72-4.72H9a5.25 5.25 0 1 0 0 10.5h3a.75.75 0 0 1 0 1.5H9a6.75 6.75 0 0 1 0-13.5h10.19l-4.72-4.72a.75.75 0 0 1 0-1.06Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </ng-container>
+                <ng-container *ngIf="isLoading">
+                    <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
+                        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="#E5E7EB" />
+                        <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentColor" />
+                    </svg>
+                    Loading...
+                </ng-container>
+            </button>
+        </div>
+    </form>
+</ng-container>
