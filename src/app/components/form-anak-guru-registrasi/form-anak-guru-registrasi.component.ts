@@ -67,10 +67,12 @@ export class FormAnakGuruRegistrasiComponent implements OnInit, OnDestroy {
       map((r: any) => r.data),
       tap((r) => this.anakGuruData = r),
       tap(r => {
-        this.anakGuruForm.get('no_surat')?.setValue(r.no_sk);
-        this.anakGuruForm.get('name_file')?.setValue(r.file_name);
-        this.anakGuruForm.get('file')?.setValue(r.file_url);
-        this.nameFile = r.file_name === '' ? null : r.file_name
+        if (r.length !== 0){
+          this.anakGuruForm.get('no_surat')?.setValue(r.no_sk);
+          this.anakGuruForm.get('name_file')?.setValue(r.file_name);
+          this.anakGuruForm.get('file')?.setValue(r.file_url);
+          this.nameFile = r.file_name === '' ? null : r.file_name
+        }
       }),
       catchError(e => {
         this.actionMessageError = true;

@@ -89,7 +89,7 @@ export class PrestasiComponent implements OnInit, OnDestroy {
         item.process = 'on proses';
       }
     });
-    this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/nilai-rapor');
+    this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/afirmasi-disabilitas');
     this.router.navigate(['registrasi/afirmasi-disabilitas'])
   }
 }

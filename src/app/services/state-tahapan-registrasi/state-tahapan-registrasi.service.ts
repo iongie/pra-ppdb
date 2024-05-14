@@ -20,6 +20,8 @@ export class StateTahapanRegistrasiService {
   private async initializecookieStorage() {
     const storedTahapanRegistrasi = await this.cookieStorage.get('tahapan-registrasi');
     const storedHalaman = await this.cookieStorage.get('halaman-registrasi');
+    console.log('storedHalaman', storedHalaman.length);
+    
     this.tahapanRegistrasi.next(storedTahapanRegistrasi.length !== 0 ? JSON.parse(storedTahapanRegistrasi): defTahapanRegistrasi);
     this.halaman.next(storedHalaman.length !== 0 ? storedHalaman: null)
   }

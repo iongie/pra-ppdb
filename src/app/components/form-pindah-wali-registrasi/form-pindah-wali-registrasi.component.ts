@@ -67,11 +67,13 @@ export class FormPindahWaliRegistrasiComponent implements OnInit, OnDestroy {
         map((r: any) => r.data),
         tap((r) => this.pindahWali = r),
         tap(r => {
-          this.pindahWaliForm.get('no_surat')?.setValue(r.no_sk);
-          this.pindahWaliForm.get('instansi_ortu')?.setValue(r.instansi_ortu);
-          this.pindahWaliForm.get('name_file')?.setValue(r.file_name);
-          this.pindahWaliForm.get('file')?.setValue(r.file_url);
-          this.nameFile = r.file_name === '' ? null : r.file_name
+          if (r.length !== 0){
+            this.pindahWaliForm.get('no_surat')?.setValue(r.no_sk);
+            this.pindahWaliForm.get('instansi_ortu')?.setValue(r.instansi_ortu);
+            this.pindahWaliForm.get('name_file')?.setValue(r.file_name);
+            this.pindahWaliForm.get('file')?.setValue(r.file_url);
+            this.nameFile = r.file_name === '' ? null : r.file_name
+          }
         }),
         catchError(e => {
           this.actionMessageError = true;

@@ -72,11 +72,13 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
         map((r: any) => r.data),
         tap((r) => this.afirmasiData = r),
         tap(r => {
-          this.afirmasiForm.get('jns_afirmasi_id')?.setValue(r.tmjenis_afirmasi_id);
-          this.afirmasiForm.get('no_kartu')?.setValue(r.nomor);
-          this.afirmasiForm.get('name_file')?.setValue(r.file_name);
-          this.afirmasiForm.get('file')?.setValue(r.file_url);
-          this.nameFile = r.file_name === '' ? null : r.file_name
+          if(r.length !== 0){
+            this.afirmasiForm.get('jns_afirmasi_id')?.setValue(r.tmjenis_afirmasi_id);
+            this.afirmasiForm.get('no_kartu')?.setValue(r.nomor);
+            this.afirmasiForm.get('name_file')?.setValue(r.file_name);
+            this.afirmasiForm.get('file')?.setValue(r.file_url);
+            this.nameFile = r.file_name === '' ? null : r.file_name
+          }
         }),
         catchError(e => {
           this.actionMessageError = true;

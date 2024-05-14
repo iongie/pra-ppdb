@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { registerAccessGuard } from './guards/registrasi.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'registrasi',
-    loadChildren: () => import('./outlets/registrasi/registrasi.module').then(m=> m.RegistrasiModule)
+    loadChildren: () => import('./outlets/registrasi/registrasi.module').then(m=> m.RegistrasiModule),
+    canActivate:[registerAccessGuard]
   },
   {
     path: 'forbidden',

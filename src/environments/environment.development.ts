@@ -3,5 +3,6 @@ export const environment = {
     CAPTCHA_SITE_KEY: "6LdVgqMpAAAAADwYBfJFou9IOgtha8BGgSoM9N7r",
     URL_NOMINATIM: "https://nominatim.openstreetmap.org/",
     GOOGLE_MAP_KEY: "AIzaSyCKeLcUfs-4psT3ecJGBL1bAX12zUgZ28U",//AIzaSyAvcDy5ZYc2ujCS6TTtI3RYX5QmuoV8Ffw,
-    KOORDINATE_MAP_INDONESIA: "https://clouddiskominfo.tangerangselatankota.go.id/ppdb24/map/kel/"
+    KOORDINATE_MAP_INDONESIA: "https://clouddiskominfo.tangerangselatankota.go.id/ppdb24/map/kel/",
+    GA: "G-V32EBMM1Z1"
 };
