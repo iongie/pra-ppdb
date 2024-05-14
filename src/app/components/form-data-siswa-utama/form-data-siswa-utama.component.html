@@ -277,8 +277,10 @@
                 <div class="sm:col-span-2">
                     <google-map height="320px" width="100%" [center]="center" [zoom]="zoom"
                         (mapClick)="addMarkerMapAction($event)">
-                        <map-polygon [paths]="vertices" [options]="optionMapPolygon"
+                        <ng-container *ngIf="vertices.length !== 0">
+                            <map-polygon [paths]="vertices" [options]="optionMapPolygon"
                                 (polygonClick)="addMarkerMapPolygonAction($event)" />
+                        </ng-container>
                         @for (position of markerPositions; track position) {
                         <map-marker #marker="mapMarker" [position]="position"
                             (mapClick)="openInfoMarkerAction(marker)" />

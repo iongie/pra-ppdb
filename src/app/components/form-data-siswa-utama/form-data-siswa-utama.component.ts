@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { EMPTY, Subject, catchError, map, of, switchMap, takeUntil, tap, timer } from 'rxjs';
+import { Subject, catchError, map, of, switchMap, takeUntil, tap, timer } from 'rxjs';
 import { Sekolah, defSekolah } from '../../interfaces/sekolah.interface';
 import { Kabupaten, Kecamatan, Kelurahan, Provinsi, defKabupaten, defKecamatan, defKelurahan, defProvinsi } from '../../interfaces/daerah.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -75,13 +75,8 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
     fillColor: 'red',
     fillOpacity: 0.2
   }
-  minMax = {
-    maxLat: 0,
-    minLat: 0,
-    maxLng: 0,
-    minLng: 0
-  }
   minmaxError: boolean = false;
+
 
   isInfoAlamatMap: boolean = false;
   infoAlamatMap: string = '';
@@ -99,13 +94,15 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
     private helper: HelperService,
     private geocoder: MapGeocoder
   ) {
-
   }
   ngOnInit(): void {
     this.formDataSiswa();
     this.getDataSiswa();
     this.getProvinsi();
     this.getSekolah();
+    this.getDataPolygonMap();
+    console.log(this.vertices);
+    
   }
 
   ngOnDestroy(): void {
@@ -394,14 +391,20 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
     }
   }
 
-  getDataPolygonMap(kode_wilayah: string) {
-    this.callApi.getKoordinat(kode_wilayah)
-      .pipe(takeUntil(this.destroy))
-      .subscribe((res: any) => {
-        res.features[0].geometry.coordinates[0].map((coord: any) => {
-          this.vertices.push({ lat: parseFloat(coord[1]), lng: parseFloat(coord[0]) })
-        })
-      })
+  getDataPolygonMap() {
+    this.stateLogin.getLogin
+      .pipe(
+        switchMap((r) => this.callApi.post({ nik: r.nik, nisn: r.nisn }, 'siswa/detail')),
+        map((r: any) => r.data),
+        switchMap((r)=>this.callApi.exGetKoordinat(this.helper.modifKodeWilayah(r.kode))),
+        tap((res: any) => {
+          console.log(res);
+          res.features[0].geometry.coordinates[0].map((coord: any) => {
+            this.vertices.push({ lat: parseFloat(coord[1]), lng: parseFloat(coord[0]) })
+          })
+        }),
+        takeUntil(this.destroy)
+      ).subscribe()
   }
 
   validasiMarker(e: any) {
@@ -438,8 +441,8 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
             this.minmaxError = true;
           }
         }),
-        switchMap(()=> timer(2000)),
-        tap(()=> this.minmaxError = false),
+        switchMap(() => timer(2000)),
+        tap(() => this.minmaxError = false),
         takeUntil(this.destroy)
       )
       .subscribe()
@@ -478,9 +481,9 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
 
         }),
         tap((n) => {
-          if(n !== 0){
+          if (n !== 0) {
             this.infoAlamatMap = n.results[0].formatted_address
-          }else{
+          } else {
             this.minmaxError = false
           }
         }),
@@ -532,7 +535,6 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
                 r.alamat_map !== '' && this.dataSiswaForm.get('alamat_map')?.setValue(r.alamat_map);
               }),
               tap((r) => {
-                this.getDataPolygonMap(this.helper.modifKodeWilayah(r.kode))
                 this.center = r.lat === "" && r.long === "" ? { lat: position.coords.latitude, lng: position.coords.longitude } : { lat: parseFloat(r.lat), lng: parseFloat(r.long) }
                 this.markerPositions.push({ lat: this.center.lat, lng: this.center.lng })
                 this.stateGeoLokasi.updateLatLon({ lat: this.center.lat, lon: this.center.lng })

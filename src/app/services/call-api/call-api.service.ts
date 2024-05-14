@@ -69,8 +69,8 @@ export class CallApiService {
     )
   }
 
-  exGetKoordinat(){
-    return this.http.get('../../../assets/36_74_01_1001.json').pipe(
+  exGetKoordinat(page_url?: string){
+    return this.http.get('../../../assets/kel/'+page_url).pipe(
       catchError((error) => {
         return throwError(() => error);
       })
