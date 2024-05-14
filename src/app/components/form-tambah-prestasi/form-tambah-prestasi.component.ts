@@ -263,7 +263,7 @@ export class FormTambahPrestasiComponent implements OnInit, OnDestroy {
             item.process = 'on proses';
           }
         });
-        this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'register/prestasi');
+        this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/prestasi');
         this.router.navigate(['registrasi/prestasi'])
       }),
       catchError(e => {

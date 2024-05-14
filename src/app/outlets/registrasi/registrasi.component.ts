@@ -9,16 +9,33 @@ import { Subject, tap, takeUntil } from 'rxjs';
 })
 export class RegistrasiComponent implements OnInit, OnDestroy {
   view: boolean = false;
+  viewKonfirm: boolean = false;
   private destroy: Subject<void> = new Subject<void>();
   constructor(
     private stateKonfirmasi: StateKonfirmasiRegistrasiService
   ){}
 
   ngOnInit(): void {
+   this.konfirmRegister();
+   this.successRegister();
+  }
+
+  konfirmRegister(){
     this.stateKonfirmasi.getProsesRegister
     .pipe(
       tap(n=>{
         this.view = n
+      }),
+      takeUntil(this.destroy)
+    )
+    .subscribe()
+  }
+
+  successRegister(){
+    this.stateKonfirmasi.getSuccessRegister
+    .pipe(
+      tap(n=>{
+        this.viewKonfirm = n
       }),
       takeUntil(this.destroy)
     )

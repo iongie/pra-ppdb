@@ -1,4 +1,4 @@
-<ng-container *ngIf="respon.mode !== null">
+<ng-container>
     <div class="fixed inset-0 z-50 flex justify-center items-center backdrop-blur-sm bg-white bg-opacity-50">
         <div class="relative p-4 w-full max-w-md">
             <!-- Modal content -->
@@ -13,10 +13,10 @@
                     <span class="sr-only">Success</span>
                 </div>
                 <p class="mb-4 text-lg font-semibold text-gray-900">{{respon.pesan}}</p>
-                <button (click)="lanjut()" type="button"
+                <!-- <button (click)="lanjut()" type="button"
                     class="py-2 px-3 text-sm font-medium text-white rounded-lg bg-colors-primary hover:bg-colors-secondary hover:text-black">
                     Selesai
-                </button>
+                </button> -->
             </div>
         </div>
     </div>

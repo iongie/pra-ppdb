@@ -9,6 +9,13 @@ export const tahapanGuard: CanActivateFn = async (route, state) => {
     const cookie = inject(CookieService)
     const router = inject(Router);
     const getTahapan = await cookie.get('halaman-registrasi');
-    console.log(getTahapan, state, route.url[0].path, state.url === '/'+getTahapan);
-    return state.url === '/'+getTahapan ? true : router.navigate([getTahapan!]);
+    // console.log(getTahapan, state, route.url[0].path, state.url === '/'+getTahapan);
+    if(state.url === '/'+getTahapan){
+      return true
+    } else if (state.url === '/registrasi/tambah-prestasi' && getTahapan === 'registrasi/prestasi'){
+      return true
+    } else {
+      router.navigate([getTahapan!])
+      return false
+    }
   };

@@ -194,9 +194,9 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
             item.process = 'on proses';
           }
         });
-        this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'register/anak-guru')
+        this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/anak-guru')
       }),
-      tap(() => this.router.navigate(['register/anak-guru'])),
+      tap(() => this.router.navigate(['registrasi/anak-guru'])),
       catchError(e => {
         this.isLoading = false;
         this.stateRespon.updateModelToast({ mode: 'error', pesan: e.error.message });
@@ -215,8 +215,8 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
               item.process = 'on proses';
             }
           });
-          this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'register/anak-guru')
-          this.router.navigate(['register/anak-guru'])
+          this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/anak-guru')
+          this.router.navigate(['registrasi/anak-guru'])
         }
         throw e;
       }),
