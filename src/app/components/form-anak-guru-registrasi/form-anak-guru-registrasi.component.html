@@ -1,8 +1,15 @@
 <div class="p-4 md:p-5">
     <ng-container>
-        <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-            <span class="font-medium">Informasi!</span> Tahapan ini bisa dilewati, anda bisa langsung ke proses berikutnya
-          </div>
+        <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+            role="alert">
+            <span class="font-medium">Informasi!</span> Tahapan ini bisa dilewati, anda bisa langsung ke proses
+            berikutnya
+        </div>
+
+        <div class="p-4 mb-4 text-sm text-orange-800 rounded-lg bg-orange-50 dark:bg-gray-800 dark:text-orange-800"
+            role="alert">
+            <span class="font-medium">Informasi!</span> Guru yang di maksud adalah guru yang mengajar di sekolah tujuan
+        </div>
     </ng-container>
     <ng-container *ngIf="actionMessageError">
         <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
@@ -15,7 +22,7 @@
             Bukti Anak Guru
         </h3>
         <div class="grid gap-4 mb-4 sm:grid-cols-2">
-            
+
         </div>
         <div class="mb-4">
             <div>
@@ -23,7 +30,7 @@
                     Nomor SK Penugasan Mengajar
                     <span class="text-red-500">*</span>
                 </label>
-                <input  type="text" name="no_surat" id="no_surat"
+                <input type="text" name="no_surat" id="no_surat"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Nomor surat" formControlName="no_surat" />
                 <ng-container *ngIf="noNomorSUrat">
@@ -100,8 +107,7 @@
 
         <div
             class="items-center space-y-2 md:flex-row md:justify-end sm:flex sm:flex-col sm:space-y-0 sm:space-x-4 mb-4 md:mb-4">
-            <button type="button"
-                (click)="kembali()"
+            <button type="button" (click)="kembali()"
                 class="gap-1 w-full sm:w-auto justify-center inline-flex text-black bg-gray-100 hover:ring-1 hover:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd"
@@ -128,8 +134,7 @@
                     Loading...
                 </ng-container>
             </button>
-            <button type="button"
-                (click)="lewati()"
+            <button type="button" (click)="lewati()"
                 class="gap-1 w-full sm:w-auto justify-center inline-flex text-black bg-gray-100 hover:ring-1 hover:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                 <span>Lewati</span>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">

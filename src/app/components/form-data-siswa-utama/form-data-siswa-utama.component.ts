@@ -80,6 +80,8 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
 
   isInfoAlamatMap: boolean = true;
   infoAlamatMap: string = '';
+  infoLatMap: string = '';
+  infoLonMap: string = '';
 
   isCariAlamat: boolean = false;
   constructor(
@@ -468,6 +470,8 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
           this.markerPositions = [];
           this.markerPositions.push(e.latLng!.toJSON());
           this.stateGeoLokasi.updateLatLon({ lat: e.latLng!.toJSON().lat, lon: e.latLng!.toJSON().lng })
+          this.infoLatMap = e.latLng!.toJSON().lat.toString()
+          this.infoLonMap = e.latLng!.toJSON().lng.toString()
         }),
         switchMap((e) => this.geocoder.geocode({ location: { lat: e.latLng!.toJSON().lat, lng: e.latLng!.toJSON().lng } })),
         tap((n) => {
@@ -514,6 +518,8 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
             this.center = { lat: e.lat!, lng: e.lon! }
             this.markerPositions.push({ lat: e.lat!, lng: e.lon! });
             this.stateGeoLokasi.updateLatLon({ lat: e.lat!, lon: e.lon! })
+            this.infoLatMap = e.lat!.toString()
+            this.infoLonMap = e.lon!.toString()
           }
         }),
         switchMap((e) => {
@@ -522,6 +528,8 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
             this.minmaxError = true;
             return timer(2000)
           } else {
+            this.infoLatMap = e.lat!.toString()
+            this.infoLonMap = e.lon!.toString()
             return this.geocoder.geocode({ location: { lat: e.lat!, lng: e.lon! } })
           }
 
@@ -581,6 +589,8 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
                 r.alamat_map !== '' && this.dataSiswaForm.get('alamat_map')?.setValue(r.alamat_map);
               }),
               tap((r) => {
+                this.infoLatMap = r.lat === "" ?  position.coords.latitude : r.lat
+                this.infoLonMap = r.lat === "" ?  position.coords.longitude : r.long
                 this.actionMap = r.lat === "" && r.long === "" ? false : true;
                 this.center = r.lat === "" && r.long === "" ? { lat: position.coords.latitude, lng: position.coords.longitude } : { lat: parseFloat(r.lat), lng: parseFloat(r.long) }
                 this.markerPositions.push({ lat: this.center.lat, lng: this.center.lng })

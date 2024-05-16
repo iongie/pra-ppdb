@@ -249,64 +249,90 @@
                 </div>
             </div>
 
-            <ng-container *ngIf="actionMap">
-                <div class="sm:col-span-2 relative md:block">
-                    <div class="flex flex-row gap-4 absolute z-10 right-1 top-1 ">
-                        <button type="button" (click)="infoAlamatMapAction()"
-                            class="w-auto justify-center inline-flex text-white bg-colors-primary hover:bg-colors-secondary hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                            <span>Lihat Alamat</span>
-                        </button>
-                        <button type="button" (click)="openCariAlamatAction()"
-                            class="w-auto justify-center inline-flex text-white bg-colors-primary hover:bg-colors-secondary hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                            <span>Cari Lokasi</span>
-                        </button>
+            <div class="grid gap-4 sm:col-span-2 md:gap-6 sm:grid-cols-5">
+                <ng-container *ngIf="actionMap">
+                    <div class="sm:col-span-3 relative md:block">
+                        <div class="flex flex-row gap-4 absolute z-10 right-1 top-1 ">
+                            <button type="button" (click)="infoAlamatMapAction()"
+                                class="w-auto justify-center inline-flex text-white bg-colors-primary hover:bg-colors-secondary hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                <span>Lihat Alamat</span>
+                            </button>
+                            <button type="button" (click)="openCariAlamatAction()"
+                                class="w-auto justify-center inline-flex text-white bg-colors-primary hover:bg-colors-secondary hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                <span>Cari Lokasi</span>
+                            </button>
 
+                        </div>
+                        <ng-container *ngIf="minmaxError">
+                            <div
+                                class="flex flex-col gap-1 absolute z-20 right-0 top-0 justify-center items-center w-full h-80 backdrop-blur-lg  bg-white bg-opacity-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="text-red-500 w-11 h-11 mx-auto">
+                                    <path fill-rule="evenodd"
+                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <p class="mb-4 text-black font-bold text-lg">Silahkan pilih titik Area Kelurahan yang
+                                    dipilih
+                                </p>
+                            </div>
+                        </ng-container>
+
+
+                        <div class="sm:col-span-2">
+                            <google-map height="320px" width="100%" [center]="center" [zoom]="zoom"
+                                (mapClick)="addMarkerMapAction($event)">
+                                <ng-container *ngIf="vertices.length !== 0">
+                                    <map-polygon [paths]="vertices" [options]="optionMapPolygon"
+                                        (polygonClick)="addMarkerMapPolygonAction($event)" />
+                                </ng-container>
+                                @for (position of markerPositions; track position) {
+                                <map-marker #marker="mapMarker" [position]="position"
+                                    (mapClick)="openInfoMarkerAction(marker)" />
+                                }
+                            </google-map>
+                        </div>
                     </div>
-                    <ng-container *ngIf="minmaxError">
+                    <ng-container *ngIf="isCariAlamat">
                         <div
-                            class="flex flex-col gap-1 absolute z-20 right-0 top-0 justify-center items-center w-full h-80 backdrop-blur-lg  bg-white bg-opacity-50">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="text-red-500 w-11 h-11 mx-auto">
-                                <path fill-rule="evenodd"
-                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <p class="mb-4 text-black font-bold text-lg">Silahkan pilih titik Area Kelurahan yang
-                                dipilih
-                            </p>
+                            class="fixed flex justify-center items-start inset-0 z-50 bg-gray-300 bg-opacity-65 w-full h-full">
+                            <prappdb-modal-cari-alamat-registrasi (view)="viewModalCariAlamatAction($event)"
+                                (lokasi)="getLokasi($event)"></prappdb-modal-cari-alamat-registrasi>
                         </div>
                     </ng-container>
-
-
-                    <div class="sm:col-span-2">
-                        <google-map height="320px" width="100%" [center]="center" [zoom]="zoom"
-                            (mapClick)="addMarkerMapAction($event)">
-                            <ng-container *ngIf="vertices.length !== 0">
-                                <map-polygon [paths]="vertices" [options]="optionMapPolygon"
-                                    (polygonClick)="addMarkerMapPolygonAction($event)" />
-                            </ng-container>
-                            @for (position of markerPositions; track position) {
-                            <map-marker #marker="mapMarker" [position]="position"
-                                (mapClick)="openInfoMarkerAction(marker)" />
-                            }
-                        </google-map>
-                    </div>
-                </div>
-                <ng-container *ngIf="isCariAlamat">
-                    <div
-                        class="fixed flex justify-center items-start inset-0 z-50 bg-gray-300 bg-opacity-65 w-full h-full">
-                        <prappdb-modal-cari-alamat-registrasi (view)="viewModalCariAlamatAction($event)"
-                            (lokasi)="getLokasi($event)"></prappdb-modal-cari-alamat-registrasi>
-                    </div>
+                    <ng-container *ngIf="isInfoAlamatMap">
+                        <div class="grid gap-4 mb-4 sm:grid-cols-1 sm:col-span-2">
+                            <div class="sm:col-span-2">
+                                <label for="kelurahan_id" class="block mb-2 text-sm font-medium text-gray-900">
+                                    Latitude
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <div
+                                    class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                    {{infoLatMap}}</div>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="kelurahan_id" class="block mb-2 text-sm font-medium text-gray-900">
+                                    Longitude
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <div
+                                    class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                    {{infoLonMap}}</div>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="kelurahan_id" class="block mb-2 text-sm font-medium text-gray-900">
+                                    Alamat Map
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <div
+                                    class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                    {{infoAlamatMap}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
                 </ng-container>
-                <ng-container *ngIf="isInfoAlamatMap">
-                    <div class="sm:col-span-2">
-                        <div
-                            class="bg-blue-50 border border-blue-50 text-blue-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            {{infoAlamatMap}}</div>
-                    </div>
-                </ng-container>
-            </ng-container>
+            </div>
 
         </div>
         <div class="mb-4">
@@ -487,7 +513,7 @@
                 </div>
                 <div>
                     <label for="smp_tujuan" class="mb-2 text-sm font-medium text-gray-900">
-                        SMPN Tujuan
+                        Tempat Verifikasi
                         <span class="text-red-500">*</span>
                     </label>
                     <select (change)="onSekolahChange($event)" id="kel" name="sekolah_asal" id="sekolah_asal"
