@@ -8,6 +8,8 @@ import { Lokasi, defLokasiUntukMap } from '../../interfaces/lokasi.interface';
 export class StateGeolokasiService {
   latlon = new BehaviorSubject<Lokasi>(defLokasiUntukMap);
   getLatLon = this.latlon.asObservable();
+  allowGeoLocation = new BehaviorSubject<boolean>(false);
+  getAlloeGeoLocation = this.allowGeoLocation.asObservable();
   constructor() {
   }
 
@@ -18,6 +20,14 @@ export class StateGeolokasiService {
 
   async clearLatLon(){
     this.latlon.next(defLokasiUntukMap)
+  }
+
+  async updateAllow(newAllow: boolean){
+    this.allowGeoLocation.next(newAllow)
+  }
+
+  async clearAllow(){
+    this.allowGeoLocation.next(true)
   }
 
 }

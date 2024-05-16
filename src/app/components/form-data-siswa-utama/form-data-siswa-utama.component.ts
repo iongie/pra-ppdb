@@ -101,11 +101,31 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
     this.getProvinsi();
     this.getSekolah();
     this.getDataPolygonMap();
+    this.allowGeo();
+
   }
 
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
+  }
+
+  async allowGeo() {
+    const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+    if (permissionStatus.state === 'granted') {
+      this.stateGeoLokasi.updateAllow(false);
+      console.log("Geolocation permission granted.");
+    } else if (permissionStatus.state === 'prompt') {
+      this.stateGeoLokasi.updateAllow(true);
+      console.log("Geolocation permission prompt.");
+    } else if (permissionStatus.state === 'denied') {
+      this.stateGeoLokasi.updateAllow(true);
+      console.log("Geolocation permission denied.");
+    }
+
+    permissionStatus.onchange = function () {
+      console.log("Geolocation permission state has changed to: ", this.state);
+    };
   }
 
   formDataSiswa() {
@@ -290,13 +310,13 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
     this.dataSiswaForm.get('kecamatan_id')?.enable();
     this.getKecamatan(event.target.value);
     this.getKelurahan(event.target.value);
-    if(this.kabupaten.length !== 0){
-      const filter_kab = this.kabupaten.filter(r=> {
-        return r.id === parseInt(selectedValue  )
+    if (this.kabupaten.length !== 0) {
+      const filter_kab = this.kabupaten.filter(r => {
+        return r.id === parseInt(selectedValue)
       })
-      if(filter_kab[0].kode === '36.74'){
+      if (filter_kab[0].kode === '36.74') {
         this.actionMap = true;
-      }else {
+      } else {
         this.actionMap = false;
       }
     }
@@ -351,25 +371,25 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
   onKelurahanChange(event: any) {
     const selectedValue = event.target.value;
     this.dataSiswaForm.get('kelurahan_id')?.setValue(selectedValue);
-    if(this.kelurahan.length !== 0){
-      const filter_kel = this.kelurahan.filter(r=> {
-        return r.id === parseInt(selectedValue  )
+    if (this.kelurahan.length !== 0) {
+      const filter_kel = this.kelurahan.filter(r => {
+        return r.id === parseInt(selectedValue)
       })
       this.callApi.exGetKoordinat(this.helper.modifKodeWilayah(filter_kel[0].kode!))
-      .pipe(
-        tap((res: any) => {
-          this.markerPositions = [];
-          this.vertices = [];
-          res.features[0].geometry.coordinates[0].map((coord: any) => {
-            this.vertices.push({ lat: parseFloat(coord[1]), lng: parseFloat(coord[0]) })
-          })
-        }),
-        takeUntil(this.destroy)
-      ).subscribe()
+        .pipe(
+          tap((res: any) => {
+            this.markerPositions = [];
+            this.vertices = [];
+            res.features[0].geometry.coordinates[0].map((coord: any) => {
+              this.vertices.push({ lat: parseFloat(coord[1]), lng: parseFloat(coord[0]) })
+            })
+          }),
+          takeUntil(this.destroy)
+        ).subscribe()
       console.log(filter_kel, selectedValue, this.kelurahan);
-      
+
     }
-    
+
   }
 
   refreshDataGetKelurahan() {
@@ -382,7 +402,7 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(() => this.callApi.get('sekolah')),
         tap((r: any) => this.sekolah = r.data),
-        
+
         catchError(e => {
           this.sekolahError = true;
           this.sekolahErrorMessage = e.error.message
@@ -423,7 +443,7 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((r) => this.callApi.post({ nik: r.nik, nisn: r.nisn }, 'siswa/detail')),
         map((r: any) => r.data),
-        switchMap((r)=> r.kode !== undefined ? this.callApi.exGetKoordinat(this.helper.modifKodeWilayah(r.kode)): EMPTY),
+        switchMap((r) => r.kode !== undefined ? this.callApi.exGetKoordinat(this.helper.modifKodeWilayah(r.kode)) : EMPTY),
         tap((res: any) => {
           res.features[0].geometry.coordinates[0].map((coord: any) => {
             this.vertices.push({ lat: parseFloat(coord[1]), lng: parseFloat(coord[0]) })
@@ -561,7 +581,7 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
                 r.alamat_map !== '' && this.dataSiswaForm.get('alamat_map')?.setValue(r.alamat_map);
               }),
               tap((r) => {
-                this.actionMap = r.lat === "" && r.long === "" ? false: true;
+                this.actionMap = r.lat === "" && r.long === "" ? false : true;
                 this.center = r.lat === "" && r.long === "" ? { lat: position.coords.latitude, lng: position.coords.longitude } : { lat: parseFloat(r.lat), lng: parseFloat(r.long) }
                 this.markerPositions.push({ lat: this.center.lat, lng: this.center.lng })
                 this.stateGeoLokasi.updateLatLon({ lat: this.center.lat, lon: this.center.lng })

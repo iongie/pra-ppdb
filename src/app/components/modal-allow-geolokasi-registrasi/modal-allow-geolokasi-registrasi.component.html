@@ -1,0 +1,21 @@
+<ng-container>
+    <div
+        class="w-auto fixed inset-0 z-50 flex justify-center items-center md:inset-0 h-modal md:h-full backdrop-blur-lg bg-black bg-opacity-50">
+        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+            <!-- Modal content -->
+            <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                    class="text-red-700 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto">
+                    <path fill-rule="evenodd"
+                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                        clip-rule="evenodd" />
+                </svg>
+                <p class="mb-4 text-gray-500 dark:text-gray-300">Harap aktifkan izin lokasi dan lakukan reload halaman.
+                </p>
+                <button onclick="location.reload();" class="mt-2 px-4 py-2 bg-red-700 text-white hover:bg-colors-primary rounded-lg">
+                    Reload Halaman
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>

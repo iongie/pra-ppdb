@@ -17,6 +17,7 @@ import { FormTambahPrestasiComponent } from './form-tambah-prestasi/form-tambah-
 import { ModalKonfirmasiRegistrasiComponent } from './modal-konfirmasi-registrasi/modal-konfirmasi-registrasi.component';
 import { ModalCariAlamatRegistrasiComponent } from './modal-cari-alamat-registrasi/modal-cari-alamat-registrasi.component';
 import { ResponSuccessModalComponent } from './respon-success-modal/respon-success-modal.component';
+import { ModalAllowGeolokasiRegistrasiComponent } from './modal-allow-geolokasi-registrasi/modal-allow-geolokasi-registrasi.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ResponSuccessModalComponent } from './respon-success-modal/respon-succe
     FormTambahPrestasiComponent,
     ModalKonfirmasiRegistrasiComponent,
     ModalCariAlamatRegistrasiComponent,
-    ResponSuccessModalComponent
+    ResponSuccessModalComponent,
+    ModalAllowGeolokasiRegistrasiComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { ResponSuccessModalComponent } from './respon-success-modal/respon-succe
     FormTambahPrestasiComponent,
     ModalKonfirmasiRegistrasiComponent,
     ModalCariAlamatRegistrasiComponent,
-    ResponSuccessModalComponent
+    ResponSuccessModalComponent,
+    ModalAllowGeolokasiRegistrasiComponent
   ]
 })
 export class ComponentRegistrasiModule { }

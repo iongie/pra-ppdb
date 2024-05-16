@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateKonfirmasiRegistrasiService } from '../../services/state-konfirmasi-registrasi/state-konfirmasi-registrasi.service';
 import { Subject, tap, takeUntil } from 'rxjs';
+import { StateGeolokasiService } from '../../services/state-geolokasi/state-geolokasi.service';
 
 @Component({
   selector: 'prappdb-registrasi',
@@ -10,14 +11,17 @@ import { Subject, tap, takeUntil } from 'rxjs';
 export class RegistrasiComponent implements OnInit, OnDestroy {
   view: boolean = false;
   viewKonfirm: boolean = false;
+  viewAllow: boolean = true;
   private destroy: Subject<void> = new Subject<void>();
   constructor(
-    private stateKonfirmasi: StateKonfirmasiRegistrasiService
+    private stateKonfirmasi: StateKonfirmasiRegistrasiService,
+    private stateGeo: StateGeolokasiService
   ){}
 
   ngOnInit(): void {
    this.konfirmRegister();
    this.successRegister();
+   this.allowGeo();
   }
 
   konfirmRegister(){
@@ -42,6 +46,16 @@ export class RegistrasiComponent implements OnInit, OnDestroy {
     .subscribe()
   }
 
+  allowGeo(){
+    this.stateGeo.getAlloeGeoLocation
+    .pipe(
+      tap(n=>{
+        this.viewAllow = n
+      }),
+      takeUntil(this.destroy)
+    )
+    .subscribe()
+  }
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();  
