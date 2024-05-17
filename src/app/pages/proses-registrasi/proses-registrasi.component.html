@@ -31,6 +31,25 @@
                     </span>
                 </li>
             </ng-container>
+            
+            <ng-container *ngIf="hasilRegistrasi.status === 'Menunggu verifikasi'">
+                <li class="flex items-center text-gray-500 space-x-2.5 rtl:space-x-reverse">
+                    <span class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0">
+                        2
+                    </span>
+                    <span>
+                        <h3 class="font-medium leading-tight">Proses Verifikasi</h3>
+                    </span>
+                </li>
+                <li class="flex items-center text-gray-500 space-x-2.5 rtl:space-x-reverse">
+                    <span class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0">
+                        3
+                    </span>
+                    <span>
+                        <h3 class="font-medium leading-tight">Hasil Verifikasi</h3>
+                    </span>
+                </li>
+            </ng-container>
             <ng-container *ngIf="hasilRegistrasi.status === 'Verifikasi Operator'">
                 <li class="flex items-center text-green-600 space-x-2.5 rtl:space-x-reverse">
                     <span
@@ -199,7 +218,8 @@
                 <span class="animate-pulse text-xs rounded-full px-4 py-1.5 mr-3" 
                 [ngClass]="{'bg-green-700 text-white': hasilRegistrasi.status === 'Disetujui', 
                 'bg-red-700 text-white' : hasilRegistrasi.status === 'Revisi',
-                'bg-blue-700 text-white' : hasilRegistrasi.status === 'Verifikasi Operator' }">
+                'bg-blue-700 text-white' : hasilRegistrasi.status === 'Verifikasi Operator',
+                'bg-gray-700 text-white' : hasilRegistrasi.status === 'Menunggu verifikasi' }">
                     {{hasilRegistrasi.status}}</span>
             </div>
         </div>
