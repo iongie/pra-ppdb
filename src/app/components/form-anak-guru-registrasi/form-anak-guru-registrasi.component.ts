@@ -110,6 +110,7 @@ export class FormAnakGuruRegistrasiComponent implements OnInit, OnDestroy {
 
   async uploadFile(event: any) {
     try {
+      this.uploadError = false;
       const uploadFile: File = await event.target.files[0]
       await this.anakGuruForm.patchValue({ 'file': uploadFile })
       await this.anakGuruForm.patchValue({ 'name_file': uploadFile.name })
@@ -119,7 +120,7 @@ export class FormAnakGuruRegistrasiComponent implements OnInit, OnDestroy {
       }
       this.nameFile = uploadFile.name
     } catch (e: any) {
-      this.uploadError = false;
+      this.uploadError = true;
       this.uploadErrorMessage = e.message
     }
   }

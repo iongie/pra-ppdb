@@ -208,6 +208,7 @@ export class FormTambahPrestasiComponent implements OnInit, OnDestroy {
 
   async uploadSertifikat(event: any) {
     try {
+      this.uploadError = false;
       const uploadFile: File = await event.target.files[0];
       console.log(uploadFile);
       await this.prestasiForm.patchValue({ 'sertifikat': uploadFile });
@@ -218,7 +219,7 @@ export class FormTambahPrestasiComponent implements OnInit, OnDestroy {
       }
       this.nameFile = uploadFile.name
     } catch (e: any) {
-      this.uploadError = false;
+      this.uploadError = true;
       this.uploadErrorMessage = e.message
     }
   }

@@ -426,6 +426,7 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
 
   async uploadKK(event: any) {
     try {
+      this.uploadError = false;
       const uploadFile: File = await event.target.files[0];
       await this.dataSiswaForm.patchValue({ 'kk': uploadFile })
       await this.dataSiswaForm.patchValue({ 'name_file': uploadFile.name })
@@ -435,7 +436,7 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
       }
       this.nameFile = uploadFile.name
     } catch (e: any) {
-      this.uploadError = false;
+      this.uploadError = true;
       this.uploadErrorMessage = e.message;
     }
   }

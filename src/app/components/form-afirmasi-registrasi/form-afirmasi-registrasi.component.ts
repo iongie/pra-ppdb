@@ -140,6 +140,7 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
 
   async uploadFile(event: any) {
     try {
+      this.uploadError = false;
       const uploadFile: File = await event.target.files[0]
       await this.afirmasiForm.patchValue({ 'file': uploadFile })
       await this.afirmasiForm.patchValue({ 'name_file': uploadFile.name })
@@ -149,7 +150,7 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
       }
       this.nameFile = uploadFile.name
     } catch (e:any) {
-      this.uploadError = false;
+      this.uploadError = true;
       this.uploadErrorMessage = e.message
     }
   }
