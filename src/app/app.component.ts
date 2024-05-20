@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateNavigasiService } from './services/state-navigasi/state-navigasi.service';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { CallApiService } from './services/call-api/call-api.service';
 
 interface CustomWindow extends Window {
   [key: string]: any;
@@ -33,13 +34,15 @@ export class AppComponent implements OnInit, OnDestroy {
   e = new URLSearchParams;
   constructor(
     private router: Router,
-    private statenavigasi: StateNavigasiService
+    private statenavigasi: StateNavigasiService,
+    private callApi: CallApiService
   ) {
     this.loadGoogleMaps();
   }
 
   ngOnInit(): void {
     this.navigation();
+    this.getIp();
   }
 
   ngOnDestroy(): void {
@@ -88,5 +91,12 @@ export class AppComponent implements OnInit, OnDestroy {
           this.statenavigasi.perbaruiUrl(event.url)
         }
       });
+  }
+
+  getIp(){
+    this.callApi.getIp('cek-ip')
+    .pipe(
+      takeUntil(this.destroy)
+    ).subscribe()
   }
 }

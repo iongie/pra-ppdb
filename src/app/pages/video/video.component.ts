@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'prappdb-video',
@@ -7,10 +8,6 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   styleUrl: './video.component.css'
 })
 export class VideoComponent implements OnInit {
-  verif : string =  'https://drive.google.com/file/d/1dkZTcsroyqtF3Ywn_ZYtm3DktF1H0Swa/preview'
-  input : string =  'https://drive.google.com/file/d/1ZWo13_iTNWZUDxc9IRe4cRLDCXuJysLk/preview'
-  daftar : string =  'https://drive.google.com/file/d/1RwDna-nfhgj0PjqOrO2rFjLXX8LdtTh3/preview';
-  playVideo: string = 'https://drive.google.com/file/d/1dkZTcsroyqtF3Ywn_ZYtm3DktF1H0Swa/preview';
   safeVerif: SafeUrl | null = null;
   safeInput: SafeUrl | null = null;
   safeDaftar: SafeUrl | null = null;
@@ -21,10 +18,10 @@ export class VideoComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.safeVerif = this.sanitizer.bypassSecurityTrustResourceUrl(this.verif);
-    this.safeInput = this.sanitizer.bypassSecurityTrustResourceUrl(this.input);
-    this.safeDaftar = this.sanitizer.bypassSecurityTrustResourceUrl(this.daftar);
-    this.safePlayVideo = this.sanitizer.bypassSecurityTrustResourceUrl(this.playVideo);
+    this.safeVerif = this.sanitizer.bypassSecurityTrustResourceUrl(environment.VERIF);
+    this.safeInput = this.sanitizer.bypassSecurityTrustResourceUrl(environment.INPUT);
+    this.safeDaftar = this.sanitizer.bypassSecurityTrustResourceUrl(environment.DAFTAR);
+    this.safePlayVideo = this.sanitizer.bypassSecurityTrustResourceUrl(environment.PLAYVIDEO);
   }
 
   gantiPlay(changeSafeUrl: SafeUrl, titlePlayVideo: string){
