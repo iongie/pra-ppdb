@@ -8,6 +8,7 @@ import { HeroUtamaComponent } from './hero-utama/hero-utama.component';
 import { LoginUtamaComponent } from './login-utama/login-utama.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    NgxCaptchaModule
+    NgxCaptchaModule, 
+    DirectivesModule
   ],
   exports:[
     FooterUtamaComponent,

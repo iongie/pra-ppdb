@@ -16,7 +16,7 @@
                             NIK
                             <span class="text-red-500">*</span>
                         </label>
-                        <input  [maxLength]="16" type="text" name="nik" id="nik"
+                        <input prappdbInputHanyaNomor [maxLength]="16" type="text" name="nik" id="nik"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             placeholder="NIK" formControlName="nik" />
                         <ng-container *ngIf="noNik">
