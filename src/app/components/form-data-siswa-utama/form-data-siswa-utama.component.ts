@@ -430,7 +430,7 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
       const uploadFile: File = await event.target.files[0];
       await this.dataSiswaForm.patchValue({ 'kk': uploadFile })
       await this.dataSiswaForm.patchValue({ 'name_file': uploadFile.name })
-      const formatList = uploadFile.type !== 'image/png' && uploadFile.type !== 'image/jpg' && uploadFile.type !== 'image/jpeg'
+      const formatList = uploadFile.type !== 'image/png' && uploadFile.type !== 'image/jpg' && uploadFile.type !== 'image/jpeg' && uploadFile.type !== 'application/pdf'
       if (formatList) {
         throw new Error('Format File tidak diizinkan')
       }
@@ -656,7 +656,7 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
           this.dataSiswaFormData.append('lama_tinggal', this.dataSiswaForm.get('lama_tinggal')?.value)
           this.dataSiswaFormData.append('alamat_detail', this.dataSiswaForm.get('alamat')?.value)
           this.dataSiswaFormData.append('rt', this.helper.padNumber(this.dataSiswaForm.get('rt')?.value, 3))
-          this.dataSiswaFormData.append('rw', this.helper.padNumber(this.dataSiswaForm.get('rt')?.value, 3))
+          this.dataSiswaFormData.append('rw', this.helper.padNumber(this.dataSiswaForm.get('rw')?.value, 3))
           this.dataSiswaFormData.append('provinsi_id', this.dataSiswaForm.get('provinsi_id')?.value)
           this.dataSiswaFormData.append('kabupaten_id', this.dataSiswaForm.get('kabupaten_id')?.value)
           this.dataSiswaFormData.append('kecamatan_id', this.dataSiswaForm.get('kecamatan_id')?.value)

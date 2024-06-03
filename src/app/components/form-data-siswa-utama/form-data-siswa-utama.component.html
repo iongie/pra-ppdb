@@ -337,7 +337,7 @@
         </div>
         <div class="mb-4">
             <span class="block mb-2 text-sm font-medium text-gray-900">
-                Upload Kartu Keluarga (format .jpeg/ .jpg/ .png)
+                Upload Kartu Keluarga, KIA dan Akte Kelahiran (Dalam satu file & format .jpeg/ .jpg/ .png /.pdf)
                 <span class="text-red-500">*</span>
             </span>
             <div class="flex justify-center items-center w-full">
@@ -373,7 +373,7 @@
                             </a>
                         </ng-container>
                     </div>
-                    <input  accept="image/png, image/jpeg, image/jpg" (change)="uploadKK($event)" id="dropzone-file" type="file" class="hidden">
+                    <input  accept="application/pdf, image/png, image/jpeg, image/jpg" (change)="uploadKK($event)" id="dropzone-file" type="file" class="hidden">
                 </label>
             </div>
             <ng-container *ngIf="noNameSertifikat">
