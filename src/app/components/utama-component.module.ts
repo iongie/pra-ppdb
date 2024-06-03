@@ -9,6 +9,7 @@ import { LoginUtamaComponent } from './login-utama/login-utama.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { DirectivesModule } from '../directives/directives.module';
+import { ModalInformasiSiswaLuarUtamaComponent } from './modal-informasi-siswa-luar-utama/modal-informasi-siswa-luar-utama.component';
 
 @NgModule({
   declarations: [

@@ -21,7 +21,7 @@ export class VideoComponent implements OnInit {
     this.safeVerif = this.sanitizer.bypassSecurityTrustResourceUrl(environment.VERIF);
     this.safeInput = this.sanitizer.bypassSecurityTrustResourceUrl(environment.INPUT);
     this.safeDaftar = this.sanitizer.bypassSecurityTrustResourceUrl(environment.DAFTAR);
-    this.safePlayVideo = this.sanitizer.bypassSecurityTrustResourceUrl(environment.PLAYVIDEO);
+    this.safePlayVideo = this.sanitizer.bypassSecurityTrustResourceUrl(environment.VERIF_SMPN);
   }
 
   gantiPlay(changeSafeUrl: SafeUrl, titlePlayVideo: string){

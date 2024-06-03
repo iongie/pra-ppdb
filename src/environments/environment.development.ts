@@ -9,5 +9,5 @@ export const environment = {
     VERIF: 'https://drive.google.com/file/d/1dkZTcsroyqtF3Ywn_ZYtm3DktF1H0Swa/preview',
     INPUT: 'https://drive.google.com/file/d/1ZWo13_iTNWZUDxc9IRe4cRLDCXuJysLk/preview',
     DAFTAR: 'https://drive.google.com/file/d/1RwDna-nfhgj0PjqOrO2rFjLXX8LdtTh3/preview',
-    PLAYVIDEO: 'https://drive.google.com/file/d/1dkZTcsroyqtF3Ywn_ZYtm3DktF1H0Swa/preview'
+    VERIF_SMPN: 'https://drive.google.com/file/d/1dkZTcsroyqtF3Ywn_ZYtm3DktF1H0Swa/preview'
 };

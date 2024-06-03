@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateNavigasiService } from './services/state-navigasi/state-navigasi.service';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { CallApiService } from './services/call-api/call-api.service';
+import { StateInformasiSiswaLuarService } from './services/state-informasi-siswa-luar/state-informasi-siswa-luar.service';
 
 interface CustomWindow extends Window {
   [key: string]: any;
@@ -21,6 +22,7 @@ interface GoogleMapsConfig {
 export class AppComponent implements OnInit, OnDestroy {
   url: string | null = null;
   private destroy: Subject<void> = new Subject<void>;
+  viewModalInformasi: boolean = true;
   h: any;
   a: any;
   k: any;
@@ -35,7 +37,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private statenavigasi: StateNavigasiService,
-    private callApi: CallApiService
+    private callApi: CallApiService,
+    private stateInfoSiswaLuar: StateInformasiSiswaLuarService
   ) {
     this.loadGoogleMaps();
   }
@@ -43,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.navigation();
     this.getIp();
+    this.getInfoSiswaLuar();
   }
 
   ngOnDestroy(): void {
@@ -98,5 +102,18 @@ export class AppComponent implements OnInit, OnDestroy {
     .pipe(
       takeUntil(this.destroy)
     ).subscribe()
+  }
+
+  getInfoSiswaLuar(){
+    this.stateInfoSiswaLuar.getInfoSiswaLuar
+    .pipe(
+      tap((r:any)=>{
+        console.log(typeof r);
+        
+        this.viewModalInformasi = r
+      }),
+      takeUntil(this.destroy)
+    )
+    .subscribe()
   }
 }

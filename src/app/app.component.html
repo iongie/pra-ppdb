@@ -1,4 +1,7 @@
 <ng-container>
     <prappdb-header-app></prappdb-header-app>
     <router-outlet></router-outlet>
+    <ng-container *ngIf="viewModalInformasi">
+        <prappdb-modal-informasi-siswa-luar-utama></prappdb-modal-informasi-siswa-luar-utama>
+    </ng-container>
 </ng-container>

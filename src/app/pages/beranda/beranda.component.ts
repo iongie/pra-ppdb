@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrl: './beranda.component.css'
 })
 export class BerandaComponent {
-
 }

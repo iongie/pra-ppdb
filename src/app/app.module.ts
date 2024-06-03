@@ -8,11 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderAppComponent } from './components/header-app/header-app.component';
 import { environment } from '../environments/environment';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
+import { ModalInformasiSiswaLuarUtamaComponent } from './components/modal-informasi-siswa-luar-utama/modal-informasi-siswa-luar-utama.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderAppComponent
+    HeaderAppComponent,
+    ModalInformasiSiswaLuarUtamaComponent
   ],
   imports: [
     BrowserModule,
