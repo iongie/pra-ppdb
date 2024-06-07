@@ -317,6 +317,7 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
     this.dataSiswaForm.get('kecamatan_id')?.enable();
     this.getKecamatan(event.target.value);
     this.getKelurahan(event.target.value);
+    console.log(selectedValue);
     if (this.kabupaten.length !== 0) {
       const filter_kab = this.kabupaten.filter(r => {
         return r.id === parseInt(selectedValue)

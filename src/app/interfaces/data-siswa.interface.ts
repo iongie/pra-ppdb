@@ -20,10 +20,10 @@ interface DataSiswa {
     smp_tujuan: string | null;
     alamat_rt: string | null;
     alamat_rw: string | null;
-    kelurahan_id: string | null;
-    kecamatan_id: string | null;
-    kabupaten_id: string | null;
-    provinsi_id: string | null;
+    kelurahan_id: number | null;
+    kecamatan_id: number | null;
+    kabupaten_id: number | null;
+    provinsi_id: number | null;
     lat: string | null;
     long: string | null;
     alamat_map: string | null;
