@@ -29,6 +29,7 @@ export class FormAnakGuruRegistrasiComponent implements OnInit, OnDestroy {
   actionMessageError: boolean = false;
   messageError: string = '';
   isLoading: boolean = false;
+  isHapusLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -238,5 +239,27 @@ export class FormAnakGuruRegistrasiComponent implements OnInit, OnDestroy {
     });
     this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/afirmasi-disabilitas');
     this.router.navigate(['registrasi/afirmasi-disabilitas'])
+  }
+
+  hapus(){
+    this.stateLogin.getLogin
+    .pipe(
+      tap(() => this.isHapusLoading = true),
+      switchMap((r) => this.callApi.delete('siswa/delete/anak_guru', r.nik!, r.nisn!)),
+        tap((r:any) => {
+          this.formAnakGuru()
+          this.stateRespon.updateModelToast({ mode: 'success', pesan: r.message })
+          this.nameFile = null
+        }),
+        catchError(e => {
+          this.isHapusLoading = false;
+          this.stateRespon.updateModelToast({ mode: 'error', pesan: e.error.message });
+          throw e;
+        }),
+        tap(() => this.isHapusLoading = false),
+        delay(5000),
+        takeUntil(this.destroy)
+    )
+    .subscribe()
   }
 }

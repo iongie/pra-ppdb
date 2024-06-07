@@ -28,6 +28,7 @@ export class FormPindahWaliRegistrasiComponent implements OnInit, OnDestroy {
   actionMessageError: boolean = false;
   messageError: string = '';
   isLoading: boolean = false;
+  isHapusLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +38,7 @@ export class FormPindahWaliRegistrasiComponent implements OnInit, OnDestroy {
     private stateNavigasi: StateNavigasiService,
     private callApi: CallApiService,
     private stateRespon: StateResponService
-  ){
+  ) {
 
   }
 
@@ -51,7 +52,7 @@ export class FormPindahWaliRegistrasiComponent implements OnInit, OnDestroy {
     this.destroy.complete();
   }
 
-  formPindahWali(){
+  formPindahWali() {
     this.pindahWaliForm = this.fb.group({
       'no_surat': [null, [Validators.required]],
       'instansi_ortu': [null, [Validators.required]],
@@ -60,14 +61,14 @@ export class FormPindahWaliRegistrasiComponent implements OnInit, OnDestroy {
     });
   }
 
-  pindahWali(){
+  pindahWali() {
     this.stateLogin.getLogin
       .pipe(
-        switchMap((p)=> this.callApi.getWithParam('siswa/pindah_ortu', 'siswa_id', parseInt(p.siswa_id!))),
+        switchMap((p) => this.callApi.getWithParam('siswa/pindah_ortu', 'siswa_id', parseInt(p.siswa_id!))),
         map((r: any) => r.data),
         tap((r) => this.pindahWali = r),
         tap(r => {
-          if (r.length !== 0){
+          if (r.length !== 0) {
             this.pindahWaliForm.get('no_surat')?.setValue(r.no_sk);
             this.pindahWaliForm.get('instansi_ortu')?.setValue(r.instansi_ortu);
             this.pindahWaliForm.get('name_file')?.setValue(r.file_name);
@@ -139,7 +140,7 @@ export class FormPindahWaliRegistrasiComponent implements OnInit, OnDestroy {
     }
   }
 
-  submit(){
+  submit() {
     of(this.pindahWaliForm.valid)
       .pipe(
         tap(() => this.isLoading = true),
@@ -152,7 +153,7 @@ export class FormPindahWaliRegistrasiComponent implements OnInit, OnDestroy {
           }
           return n;
         }),
-        switchMap(()=>this.stateLogin.getLogin),
+        switchMap(() => this.stateLogin.getLogin),
         tap((r) => {
           this.pindahWaliFormData = new FormData();
           this.pindahWaliFormData.append('nik', r.nik!)
@@ -211,7 +212,7 @@ export class FormPindahWaliRegistrasiComponent implements OnInit, OnDestroy {
             this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/konfirmasi');
             this.router.navigate(['registrasi/konfirmasi'])
           }
-          
+
           throw e;
         }),
         tap(() => this.isLoading = false),
@@ -262,5 +263,27 @@ export class FormPindahWaliRegistrasiComponent implements OnInit, OnDestroy {
     });
     this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/anak-guru');
     this.router.navigate(['registrasi/anak-guru']);
+  }
+
+  hapus() {
+    this.stateLogin.getLogin
+      .pipe(
+        tap(() => this.isHapusLoading = true),
+        switchMap((r) => this.callApi.delete('siswa/delete/pindah_ortu', r.nik!, r.nisn!)),
+        tap((r: any) => {
+          this.formPindahWali()
+          this.stateRespon.updateModelToast({ mode: 'success', pesan: r.message })
+          this.nameFile = null;
+        }),
+        catchError(e => {
+          this.isHapusLoading = false;
+          this.stateRespon.updateModelToast({ mode: 'error', pesan: e.error.message });
+          throw e;
+        }),
+        tap(() => this.isHapusLoading = false),
+        delay(5000),
+        takeUntil(this.destroy)
+      )
+      .subscribe()
   }
 }

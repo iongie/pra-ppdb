@@ -3,7 +3,7 @@ export const environment = {
     URL_API_MAIN: "https://prappdb.tangerangselatankota.go.id/api/cek/",
     CAPTCHA_SITE_KEY: "6LdVgqMpAAAAADwYBfJFou9IOgtha8BGgSoM9N7r",
     URL_NOMINATIM: "https://nominatim.openstreetmap.org/",
-    GOOGLE_MAP_KEY: "AIzaSyAl2dsrhbYzs6TYFdW7ebsTHAgu-TgKB_w",
+    GOOGLE_MAP_KEY: "AIzaSyAl2dsrhbYzs6TYFdW7ebsTHAgu-TgKB_w", //AIzaSyDx8WEiwXebsy6uDZ8LXnIpDusXQgRSkd4
     KOORDINATE_MAP_INDONESIA: "https://clouddiskominfo.tangerangselatankota.go.id/ppdb24/map/kel/",
     GA: "G-V32EBMM1Z1",
     VERIF: 'https://drive.google.com/file/d/1dkZTcsroyqtF3Ywn_ZYtm3DktF1H0Swa/preview',

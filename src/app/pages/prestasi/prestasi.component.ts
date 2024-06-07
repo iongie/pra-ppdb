@@ -7,6 +7,7 @@ import { Prestasi, defPrestasi } from '../../interfaces/prestasi.interface';
 import { StateLoginService } from '../../services/state-login/state-login.service';
 import { StateTahapanRegistrasiService } from '../../services/state-tahapan-registrasi/state-tahapan-registrasi.service';
 import { defTahapanRegistrasi } from '../../interfaces/tahapan-registrasi.interface';
+import { StateResponService } from '../../services/state-respon/state-respon.service';
 
 @Component({
   selector: 'prappdb-prestasi',
@@ -27,6 +28,7 @@ export class PrestasiComponent implements OnInit, OnDestroy {
     private router: Router,
     private callApi: CallApiService,
     private stateTahapanegistrasi: StateTahapanRegistrasiService,
+    private stateRespon: StateResponService,
     private sanitizer: DomSanitizer
   ){}
 
@@ -91,5 +93,23 @@ export class PrestasiComponent implements OnInit, OnDestroy {
     });
     this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/afirmasi-disabilitas');
     this.router.navigate(['registrasi/afirmasi-disabilitas'])
+  }
+
+  hapus(no_sertifikat: string){
+    this.stateLogin.getLogin
+    .pipe(
+      takeUntil(this.destroy),
+      tap(()=>this.dataPrestasiError = false),
+      switchMap(r=> this.callApi.delete('siswa/delete/prestasi', r.nik!, r.nisn!, no_sertifikat)),
+      tap((r:any)=> {
+        this.stateRespon.updateModelToast({ mode: 'success', pesan: r.message })
+        this.getPrestasi()
+      }),
+      catchError(e => {
+        this.dataPrestasiError = true;
+        this.dataPrestasiErrorMessage = e.error.message
+        throw e;
+      }),
+    ).subscribe()
   }
 }

@@ -88,5 +88,21 @@ export class CallApiService {
       })
     )
   }
+
+  delete(page_url?: string, nik?: string, nisn?: string, sert?: string){
+    return this.http.delete(
+      environment.URL_API+page_url,
+      {
+        params: new HttpParams()
+        .set('nik', nik!)
+        .set('nisn', nisn!)
+        .set('no_sertifikat', sert!)
+      }
+    ).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    )
+  }
   
 }

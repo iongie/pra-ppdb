@@ -27,13 +27,14 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
   uploadError: boolean = false;
   uploadErrorMessage: string = '';
 
-  
-  afirmasiData:AfirmasiData = defAfirmasiData;
+
+  afirmasiData: AfirmasiData = defAfirmasiData;
   afirmasiForm!: FormGroup;
   afirmasiFormData: FormData | null = null;
   actionMessageError: boolean = false;
   messageError: string = '';
   isLoading: boolean = false;
+  isHapusLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -65,14 +66,14 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
     });
   }
 
-  afirmasi(){
+  afirmasi() {
     this.stateLogin.getLogin
       .pipe(
-        switchMap((p)=> this.callApi.getWithParam('siswa/afirmasi', 'siswa_id', parseInt(p.siswa_id!))),
+        switchMap((p) => this.callApi.getWithParam('siswa/afirmasi', 'siswa_id', parseInt(p.siswa_id!))),
         map((r: any) => r.data),
         tap((r) => this.afirmasiData = r),
         tap(r => {
-          if(r.length !== 0){
+          if (r.length !== 0) {
             this.afirmasiForm.get('jns_afirmasi_id')?.setValue(r.tmjenis_afirmasi_id);
             this.afirmasiForm.get('no_kartu')?.setValue(r.nomor);
             this.afirmasiForm.get('name_file')?.setValue(r.file_name);
@@ -149,7 +150,7 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
         throw new Error('Format File tidak diizinkan')
       }
       this.nameFile = uploadFile.name
-    } catch (e:any) {
+    } catch (e: any) {
       this.uploadError = true;
       this.uploadErrorMessage = e.message
     }
@@ -157,51 +158,30 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
 
   submit() {
     of(this.afirmasiForm.valid)
-    .pipe(
-      tap(() => this.isLoading = true),
-      map(n => {
-        if (!n) {
-          Object.values(this.afirmasiForm.controls).forEach(control => {
-            control.markAsTouched();
-          });
-          throw new Error('harap mengisi form data');
-        }
-        return n;
-      }),
-      switchMap(() => this.stateLogin.getLogin),
-      tap((r) => {
-        this.afirmasiFormData = new FormData();
-        this.afirmasiFormData.append('nik', r.nik!)
-        this.afirmasiFormData.append('nisn', r.nisn!)
-        this.afirmasiFormData.append('jns_afirmasi_id', this.afirmasiForm.get('jns_afirmasi_id')?.value)
-        this.afirmasiFormData.append('no_kartu', this.afirmasiForm.get('no_kartu')?.value)
-        this.afirmasiFormData.append('file', this.afirmasiForm.get('file')?.value)
-      }),
-      switchMap(() => this.callApi.post(this.afirmasiFormData, 'siswa/simpan/afirmasi')),
-      tap((r: any) => {
-        this.formAfirmasi()
-        this.stateRespon.updateModelToast({ mode: 'success', pesan: r.message })
-        const stepRegistrasi = defTahapanRegistrasi;
-        stepRegistrasi.forEach(item => {
-          if (item.name === 'data siswa') {
-            item.process = 'done';
-          } else if (item.name === 'nilai rapor') {
-            item.process = 'done';
-          } else if (item.name === 'prestasi') {
-            item.process = 'done';
-          } else if (item.name === 'afirmasi / disabilitas') {
-            item.process = 'done';
-          } else if (item.name === 'anak guru') {
-            item.process = 'on proses';
+      .pipe(
+        tap(() => this.isLoading = true),
+        map(n => {
+          if (!n) {
+            Object.values(this.afirmasiForm.controls).forEach(control => {
+              control.markAsTouched();
+            });
+            throw new Error('harap mengisi form data');
           }
-        });
-        this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/anak-guru')
-      }),
-      tap(() => this.router.navigate(['registrasi/anak-guru'])),
-      catchError(e => {
-        this.isLoading = false;
-        this.stateRespon.updateModelToast({ mode: 'error', pesan: e.error.message });
-        if (e.error.message === 'Data sudah tersedia.') {
+          return n;
+        }),
+        switchMap(() => this.stateLogin.getLogin),
+        tap((r) => {
+          this.afirmasiFormData = new FormData();
+          this.afirmasiFormData.append('nik', r.nik!)
+          this.afirmasiFormData.append('nisn', r.nisn!)
+          this.afirmasiFormData.append('jns_afirmasi_id', this.afirmasiForm.get('jns_afirmasi_id')?.value)
+          this.afirmasiFormData.append('no_kartu', this.afirmasiForm.get('no_kartu')?.value)
+          this.afirmasiFormData.append('file', this.afirmasiForm.get('file')?.value)
+        }),
+        switchMap(() => this.callApi.post(this.afirmasiFormData, 'siswa/simpan/afirmasi')),
+        tap((r: any) => {
+          this.formAfirmasi()
+          this.stateRespon.updateModelToast({ mode: 'success', pesan: r.message })
           const stepRegistrasi = defTahapanRegistrasi;
           stepRegistrasi.forEach(item => {
             if (item.name === 'data siswa') {
@@ -217,14 +197,35 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
             }
           });
           this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/anak-guru')
-          this.router.navigate(['registrasi/anak-guru'])
-        }
-        throw e;
-      }),
-      tap(() => this.isLoading = false),
-      delay(5000),
-      takeUntil(this.destroy)
-    ).subscribe()
+        }),
+        tap(() => this.router.navigate(['registrasi/anak-guru'])),
+        catchError(e => {
+          this.isLoading = false;
+          this.stateRespon.updateModelToast({ mode: 'error', pesan: e.error.message });
+          if (e.error.message === 'Data sudah tersedia.') {
+            const stepRegistrasi = defTahapanRegistrasi;
+            stepRegistrasi.forEach(item => {
+              if (item.name === 'data siswa') {
+                item.process = 'done';
+              } else if (item.name === 'nilai rapor') {
+                item.process = 'done';
+              } else if (item.name === 'prestasi') {
+                item.process = 'done';
+              } else if (item.name === 'afirmasi / disabilitas') {
+                item.process = 'done';
+              } else if (item.name === 'anak guru') {
+                item.process = 'on proses';
+              }
+            });
+            this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/anak-guru')
+            this.router.navigate(['registrasi/anak-guru'])
+          }
+          throw e;
+        }),
+        tap(() => this.isLoading = false),
+        delay(5000),
+        takeUntil(this.destroy)
+      ).subscribe()
   }
 
   lewati() {
@@ -262,5 +263,27 @@ export class FormAfirmasiRegistrasiComponent implements OnInit, OnDestroy {
     this.stateTahapanegistrasi.updateTahapanRegistrasi(stepRegistrasi, 'registrasi/prestasi');
     this.router.navigate(['registrasi/prestasi']);
     this.formAfirmasi();
+  }
+
+  hapus() {
+    this.stateLogin.getLogin
+      .pipe(
+        tap(() => this.isHapusLoading = true),
+        switchMap((r) => this.callApi.delete('siswa/delete/afirmasi', r.nik!, r.nisn!)),
+        tap((r: any) => {
+          this.formAfirmasi()
+          this.stateRespon.updateModelToast({ mode: 'success', pesan: r.message })
+          this.nameFile = null
+        }),
+        catchError(e => {
+          this.isHapusLoading = false;
+          this.stateRespon.updateModelToast({ mode: 'error', pesan: e.error.message });
+          throw e;
+        }),
+        tap(() => this.isHapusLoading = false),
+        delay(5000),
+        takeUntil(this.destroy)
+      )
+      .subscribe()
   }
 }
