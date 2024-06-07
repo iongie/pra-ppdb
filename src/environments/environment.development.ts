@@ -8,6 +8,6 @@ export const environment = {
     GA: "G-V32EBMM1Z1",
     VERIF: 'https://drive.google.com/file/d/1dkZTcsroyqtF3Ywn_ZYtm3DktF1H0Swa/preview',
     INPUT: 'https://drive.google.com/file/d/1ZWo13_iTNWZUDxc9IRe4cRLDCXuJysLk/preview',
-    DAFTAR: 'https://drive.google.com/file/d/1RwDna-nfhgj0PjqOrO2rFjLXX8LdtTh3/preview',
+    DAFTAR: 'https://drive.google.com/file/d/1V4Jgx41YRv9yBlGPSQVk30B6D0M-SYQK/preview',
     VERIF_SMPN: 'https://drive.google.com/file/d/1dkZTcsroyqtF3Ywn_ZYtm3DktF1H0Swa/preview'
 };

@@ -281,6 +281,9 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
   onProvinsiChange(event: any) {
     const selectedValue = event.target.value;
     this.dataSiswaForm.get('provinsi_id')?.setValue(selectedValue);
+    this.dataSiswaForm.get('kabupaten_id')?.setValue(null);
+    this.dataSiswaForm.get('kecamatan_id')?.setValue(null);
+    this.dataSiswaForm.get('kelurahan_id')?.setValue(null);
     this.dataSiswaForm.get('kabupaten_id')?.enable();
     this.getKabupaten(event.target.value);
     this.getKecamatan(event.target.value);
@@ -309,6 +312,8 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
   onKabupatenChange(event: any) {
     const selectedValue = event.target.value;
     this.dataSiswaForm.get('kabupaten_id')?.setValue(selectedValue);
+    this.dataSiswaForm.get('kecamatan_id')?.setValue(null);
+    this.dataSiswaForm.get('kelurahan_id')?.setValue(null);
     this.dataSiswaForm.get('kecamatan_id')?.enable();
     this.getKecamatan(event.target.value);
     this.getKelurahan(event.target.value);
@@ -346,6 +351,7 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
   onKecamatanChange(event: any) {
     const selectedValue = event.target.value;
     this.dataSiswaForm.get('kecamatan_id')?.setValue(selectedValue);
+    this.dataSiswaForm.get('kelurahan_id')?.setValue(null);
     this.dataSiswaForm.get('kelurahan_id')?.enable();
     this.getKelurahan(event.target.value);
   }
@@ -590,8 +596,8 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
                 r.alamat_map !== '' && this.dataSiswaForm.get('alamat_map')?.setValue(r.alamat_map);
               }),
               tap((r) => {
-                this.infoLatMap = r.lat === "" ?  position.coords.latitude : r.lat
-                this.infoLonMap = r.lat === "" ?  position.coords.longitude : r.long
+                this.infoLatMap = r.lat === "" ? position.coords.latitude : r.lat
+                this.infoLonMap = r.lat === "" ? position.coords.longitude : r.long
                 this.actionMap = r.lat === "" && r.long === "" ? false : true;
                 this.center = r.lat === "" && r.long === "" ? { lat: position.coords.latitude, lng: position.coords.longitude } : { lat: parseFloat(r.lat), lng: parseFloat(r.long) }
                 this.markerPositions.push({ lat: this.center.lat, lng: this.center.lng })
@@ -645,6 +651,15 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
         }),
 
         switchMap(() => this.stateGeoLokasi.getLatLon),
+        map(r => {
+          if(this.dataSiswaForm.get('kabupaten_id')?.value == 40){
+            let validMarker = this.validasiMarker({ lat: r.lat!, lng: r.lon! });
+            if (!validMarker) {
+              throw new Error('harap melakukan penitikan kembali di map (area merah)');
+            }
+          }
+          return r;
+        }),
         tap((r) => {
           this.dataSiswaFormData = new FormData();
           this.dataSiswaFormData.append('file_kk', this.dataSiswaForm.get('kk')?.value)
@@ -661,11 +676,14 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
           this.dataSiswaFormData.append('kabupaten_id', this.dataSiswaForm.get('kabupaten_id')?.value)
           this.dataSiswaFormData.append('kecamatan_id', this.dataSiswaForm.get('kecamatan_id')?.value)
           this.dataSiswaFormData.append('kelurahan_id', this.dataSiswaForm.get('kelurahan_id')?.value)
-          this.dataSiswaFormData.append('lat', r.lat!.toString())
-          this.dataSiswaFormData.append('long', r.lon!.toString())
-          this.dataSiswaFormData.append('alamat_map', this.infoAlamatMap)
+          this.dataSiswaFormData.append('lat', this.dataSiswaForm.get('kabupaten_id')?.value == 40 ? r.lat!.toString() : '0')
+          this.dataSiswaFormData.append('long', this.dataSiswaForm.get('kabupaten_id')?.value == 40 ? r.lon!.toString() : '0')
+          this.dataSiswaFormData.append('alamat_map',this.dataSiswaForm.get('kabupaten_id')?.value == 40 ? this.infoAlamatMap: '0')
           this.dataSiswaFormData.append('smp_tujuan', this.dataSiswaForm.get('sekolah_tujuan')?.value)
           this.dataSiswaFormData.append('nisn', this.dataSiswa.nisn!)
+          console.log(r, this.dataSiswaForm.get('kabupaten_id')?.value, typeof this.dataSiswaForm.get('kabupaten_id')?.value);
+          
+          console.log(this.dataSiswaForm, this.dataSiswaForm.get('kabupaten_id')?.value == 40 ? r.lat!.toString() : 'lat kosong', this.dataSiswaForm.get('kabupaten_id')?.value == 40 ? r.lon!.toString() : 'lon kosong', this.dataSiswaForm.get('kabupaten_id')?.value == 40 ? this.infoAlamatMap: 'alamat map kosong');
         }),
         switchMap(() => this.callApi.post(this.dataSiswaFormData, 'siswa/simpan/daftar')),
         tap((r: any) => {
@@ -683,9 +701,11 @@ export class FormDataSiswaUtamaComponent implements OnInit, OnDestroy {
           this.formDataSiswa()
         }),
         catchError((e) => {
+          console.log(e.message);
+          
           this.isLoading = false;
           this.actionMessageError = true;
-          this.messageError = e.message === 'harap mengisi form data' ? e.message : e.error.message;
+          this.messageError = e.message === 'harap mengisi form data' || 'harap melakukan penitikan kembali'? e.message : e.error.message;
           throw e;
         }),
         takeUntil(this.destroy)
